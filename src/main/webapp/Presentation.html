@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+
+<!--
+  Google HTML5 slide template
+
+  Authors: Luke Mahé (code)
+           Marcin Wichary (code and design)
+           
+           Dominic Mazzoni (browser compatibility)
+           Charles Chen (ChromeVox support)
+
+  URL: http://code.google.com/p/html5slides/
+-->
+
+<html>
+<head>
+    <title>Presentation</title>
+
+    <meta charset='utf-8'>
+    <script
+            src='http://html5slides.googlecode.com/svn/trunk/slides.js'></script>
+</head>
+
+<style>
+    /* Your individual styles here, or just use inline styles if that’s
+    what you want. */
+    .slides.template-default > article:not(.nobackground):not(.biglogo) {
+    background: url(images/devoxx-logo-small.jpg) 690px 545px no-repeat !important;
+
+    background-color: white !important;
+    }
+
+    article li small {
+        color: 3 lighter;
+        font-style: italic;
+    }
+
+    arcticle.blur video {
+        -webkit-filter: blur(4px);
+    }
+</style>
+
+<body style='display: none'>
+
+<section class='slides layout-widescreen template-default'>
+
+<!-- Your slides (<article>s) go here. Delete or comment out the
+slides below. -->
+
+<article>
+    <h1>Devoxx 2012</h1>
+    <h2>an impression</h2>
+    <p>
+        Daniel Neagu, Gertjan Assies<br>
+        14-16 November 2012
+    </p>
+</article>
+
+<article>
+    <h3>Topics</h3>
+    <ul>
+        <li>Geek Culture<br><small>when geeks leak</small></li>
+        <li>Language improvements<br><small>lambda's, collections, parrallel execution</small></li>
+        <li>Other Languages on the JVM<br><small>Ceylon, Scala, Kotlin</small></li>
+        <li>Cloud<br><small>OpenShift, CloudFoundry, Cloudbees</small></li>
+        <li>Agile<br><small>Continous ?</small></li>
+    </ul>
+</article>
+
+<article>
+    <h3>
+        Sponsors
+    </h3>
+
+    <p><img src="images/Google2.gif"><br>
+        We should all Live Online<br>
+        Which means: We like to know more about you and show you more ad's
+    </p>
+
+    <p><img src="images/Oracle2.gif"><br>
+        Besides bringing out new versions of Java and JavaFX,<br>
+        Focus is more on embedded world "The Internet of Things", small connected devices
+    </p>
+</article>
+
+<article class="blur">
+    <video autoplay>video</video>
+
+    <script>
+        var onFail = function(e) {
+            console.log('Rejected!', e);
+        };
+
+        // Not showing vendor prefixes.
+        navigator.webkitGetUserMedia({video: true, audio: false}, function(localMediaStream) {
+            var video = document.querySelector('video');
+            video.src = window.URL.createObjectURL(localMediaStream);
+
+            // Note: onloadedmetadata doesn't fire in Chrome when using it with getUserMedia.
+            // See crbug.com/110938.
+            video.onloadedmetadata = function(e) {
+                // Ready to go. Do some stuff.
+            };
+        }, onFail);
+    </script>
+</article>
+
+<article>
+    <h3>
+        Slide with bullet points and a longer title, just because we
+        can make it longer
+    </h3>
+    <ul>
+        <li>
+            Use this template to create your presentation
+        </li>
+        <li>
+            Use the provided color palette, box and arrow graphics, and
+            chart styles
+        </li>
+        <li>
+            Instructions are provided to assist you in using this
+            presentation template effectively
+        </li>
+        <li>
+            At all times strive to maintain Google's corporate look and feel
+        </li>
+    </ul>
+</article>
+
+<article>
+    <h3>
+        Slide with bullet points that builds
+    </h3>
+    <ul class="build">
+        <li>
+            This is an example of a list
+        </li>
+        <li>
+            The list items fade in
+        </li>
+        <li>
+            Last one!
+        </li>
+    </ul>
+
+    <div class="build">
+        <p>Any element with child nodes can build.</p>
+        <p>It doesn't have to be a list.</p>
+    </div>
+</article>
+
+<article class='smaller'>
+    <h3>
+        Slide with bullet points (small font)
+    </h3>
+    <ul>
+        <li>
+            Use this template to create your presentation
+        <li>
+            Use the provided color palette, box and arrow graphics, and
+            chart styles
+        <li>
+            Instructions are provided to assist you in using this
+            presentation template effectively
+        <li>
+            At all times strive to maintain Google's corporate look and feel
+    </ul>
+</article>
+
+<article>
+    <h3>
+        Slide with a table
+    </h3>
+
+    <table>
+        <tr>
+            <th>
+                Name
+            <th>
+                Occupation
+                <tr>
+                    <td>
+                        Luke Mahé
+                    <td>
+                        V.P. of Keepin’ It Real
+        <tr>
+            <td>
+                Marcin Wichary
+            <td>
+                The Michael Bay of Doodles
+    </table>
+</article>
+
+<article class='smaller'>
+    <h3>
+        Slide with a table (smaller text)
+    </h3>
+
+    <table>
+        <tr>
+            <th>
+                Name
+            <th>
+                Occupation
+                <tr>
+                    <td>
+                        Luke Mahé
+                    <td>
+                        V.P. of Keepin’ It Real
+        <tr>
+            <td>
+                Marcin Wichary
+            <td>
+                The Michael Bay of Doodles
+    </table>
+</article>
+
+<article>
+    <h3>
+        Styles
+    </h3>
+    <ul>
+        <li>
+            <span class='red'>class="red"</span>
+        <li>
+            <span class='blue'>class="blue"</span>
+        <li>
+            <span class='green'>class="green"</span>
+        <li>
+            <span class='yellow'>class="yellow"</span>
+        <li>
+            <span class='black'>class="black"</span>
+        <li>
+            <span class='white'>class="white"</span>
+        <li>
+            <b>bold</b> and <i>italic</i>
+    </ul>
+</article>
+
+<article>
+    <h2>
+        Segue slide
+    </h2>
+</article>
+
+<article>
+    <h3>
+        Slide with an image
+    </h3>
+    <p>
+        <img style='height: 500px' src='images/example-graph.png'>
+    </p>
+    <div class='source'>
+        Source: Sergey Brin
+    </div>
+</article>
+
+<article>
+    <h3>
+        Slide with an image (centered)
+    </h3>
+    <p>
+        <img class='centered' style='height: 500px' src='images/example-graph.png'>
+    </p>
+    <div class='source'>
+        Source: Larry Page
+    </div>
+</article>
+
+<article class='fill'>
+    <h3>
+        Image filling the slide (with optional header)
+    </h3>
+    <p>
+        <img src='images/example-cat.jpg'>
+    </p>
+    <div class='source white'>
+        Source: Eric Schmidt
+    </div>
+</article>
+
+<article>
+    <h3>
+        This slide has some code
+    </h3>
+    <section>
+        <pre>
+&lt;script type='text/javascript'&gt;
+  // Say hello world until the user starts questioning
+  // the meaningfulness of their existence.
+  function helloWorld(world) {
+    for (var i = 42; --i &gt;= 0;) {
+      alert('Hello ' + String(world));
+    }
+  }
+&lt;/script&gt;
+&lt;style&gt;
+  p { color: pink }
+  b { color: blue }
+  u { color: 'umber' }
+&lt;/style&gt;
+</pre>
+    </section>
+</article>
+
+<article class='smaller'>
+    <h3>
+        This slide has some code (small font)
+    </h3>
+    <section>
+        <pre>
+&lt;script type='text/javascript'&gt;
+  // Say hello world until the user starts questioning
+  // the meaningfulness of their existence.
+  function helloWorld(world) {
+    for (var i = 42; --i &gt;= 0;) {
+      alert('Hello ' + String(world));
+    }
+  }
+&lt;/script&gt;
+&lt;style&gt;
+  p { color: pink }
+  b { color: blue }
+  u { color: 'umber' }
+&lt;/style&gt;
+</pre>
+    </section>
+</article>
+
+<article>
+    <q>
+        The best way to predict the future is to invent it.
+    </q>
+    <div class='author'>
+        Alan Kay
+    </div>
+</article>
+
+<article class='smaller'>
+    <q>
+        A distributed system is one in which the failure of a computer
+        you didn’t even know existed can render your own computer unusable.
+    </q>
+    <div class='author'>
+        Leslie Lamport
+    </div>
+</article>
+
+<article class='nobackground'>
+    <h3>
+        A slide with an embed + title
+    </h3>
+
+    <iframe src='http://www.google.com/doodle4google/history.html'></iframe>
+</article>
+
+<article class='nobackground'>
+    <iframe src='http://www.google.com/doodle4google/history.html'></iframe>
+</article>
+
+<article class='fill'>
+    <h3>
+        Full-slide embed with (optional) slide title on top
+    </h3>
+    <iframe src='http://www.google.com/doodle4google/history.html'></iframe>
+</article>
+
+<article>
+    <h3>
+        Thank you!
+    </h3>
+
+    <ul>
+        <li>
+            <a href='http://www.google.com'>google.com</a>
+    </ul>
+</article>
+
+</section>
+
+</body>
+</html>
