@@ -85,13 +85,36 @@ slides below. -->
 </article>
 
 <article>
+    <h3>Eat your own dogfood</h3>
+    <ul>
+        <li>
+            This presentation is in HTML5
+        <li>
+            It runs in OpenShift
+        <li>
+            To update it all I have to do is change some html:
+            <section>
+                <pre>
+Gertjans-MacBook-Pro:presentation gertjan$ git commit -m "added some slides"
+[master cbfdeaa] added some slides
+ 2 files changed, 113 insertions(+), 233 deletions(-)
+Gertjans-MacBook-Pro:presentation gertjan$ git push
+                </pre>
+            </section>
+        <li>
+
+    </ul>
+
+</article>
+
+<article>
     <h3>Topics</h3>
     <ul>
         <li>Geek Culture<br><small>when geeks leak</small></li>
         <li>Language improvements<br><small>lambda's, collections, parrallel execution</small></li>
         <li>Other Languages on the JVM<br><small>Ceylon, Scala, Kotlin</small></li>
         <li>Cloud<br><small>OpenShift, CloudFoundry, Cloudbees</small></li>
-        <li>Agile<br><small>Continous ?</small></li>
+        <li>Agile<br><small>Continous Integration, Deployment, Delivery</small></li>
     </ul>
 </article>
 
@@ -113,7 +136,7 @@ slides below. -->
 
 <article>
     <h3>Geek Culture</h3>
-    <ul class="build">
+    <ul>
         <li><strong>Every</strong> Speaker had a MacBookPro</li>
         <li>Most of the developers too</li>
         <li>Most used IntelliJ IDE</li>
@@ -121,45 +144,8 @@ slides below. -->
     </ul>
 </article>
 
-<article>
-    <h3>Geek Culture - when geeks leak</h3>
-    <table>
-        <tr>
-            <td><img class="small" src="images/big-mac.jpeg"></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-        </tr>
-    </table>
-</article>
-<article>
-    <h3>Geek Culture - when geeks leak</h3>
-    <table>
-        <tr>
-            <td><img class="small" src="images/big-mac.jpeg"></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><img class="small" src="images/big-mac-2.jpeg"></td>
-        </tr>
-    </table>
-</article>
-<article>
-    <h3>Geek Culture - when geeks leak</h3>
-    <table class="build">
-        <tr>
-            <td><img class="small" src="images/big-mac.jpeg"></td>
-            <td class="big"> &lt;- Class</td>
-        </tr>
-        <tr>
-            <td class="big">Instance -&gt; </td>
-            <td><img class="small" src="images/big-mac-2.jpeg"></td>
-        </tr>
-    </table>
-</article>
+
+
 
 
 <article>
@@ -255,7 +241,7 @@ public void should_login_successfully() {
 
 <article>
     <h3>
-       new Java API's
+       new Java API's (couple of talks combined)
     </h3>
     <ul class="build">
         <li>
@@ -310,12 +296,23 @@ public void should_login_successfully() {
 </article>
 
 <article>
+    <h3>Functional Compilers from CFG to EXE</h3>
+    <p>
+        Too complex and too much to go into here<br>
+        Speaker ended almost every sentence with " and that's fun"<br>
+        Especially when he was talking about something very complex or difficult<br>
+
+    </p>
+</article>
+
+
+<article>
     <h3>J2ObjC - Java to iOS translation and runtime</h3>
     <ul>
         <li>
             Focus on shareable code, NOT UI!
         <li>
-
+            Uses Eclipse JDT to create the AST
         <li>
 
         <li>
