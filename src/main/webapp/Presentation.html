@@ -56,7 +56,7 @@
         position: relative !important;
         left: -100px !important;
         padding:20px 0px 20px 100px !important;
-
+        border-radius:10px;
     }
 
     h3 {
@@ -64,6 +64,25 @@
         position: relative !important;
         left: -100px !important;
         padding: 10px 0px 10px 100px !important;
+        border-radius:10px;
+    }
+
+    .type {
+        background-color: #d3d3d3;
+        color:#00008b;
+        font-size:50%;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        padding:2px 10px 2px 10px;
+        position: relative;
+        top:11px;
+        display:inline;
+    }
+
+    pre {
+        margin-top:5px !important;
+        margin-bottom:5px !important;
     }
 
 </style>
@@ -86,25 +105,18 @@ slides below. -->
 
 <article>
     <h3>Eat your own dogfood</h3>
-    <ul>
-        <li>
-            This presentation is in HTML5
-        <li>
-            It runs in OpenShift
-        <li>
+    <p>
+            This presentation is in HTML5<br>
+            It runs in OpenShift<br>
             To update it all I have to do is change some html:
-            <section>
-                <pre>
-Gertjans-MacBook-Pro:presentation gertjan$ git commit -m "added some slides"
-[master cbfdeaa] added some slides
- 2 files changed, 113 insertions(+), 233 deletions(-)
-Gertjans-MacBook-Pro:presentation gertjan$ git push
-                </pre>
-            </section>
-        <li>
-
-    </ul>
-
+    </p>
+    <section>
+        <span class="type">bash</span>
+        <pre>
+gertjan$ git commit -m "added some slides"
+gertjan$ git push
+        </pre>
+    </section>
 </article>
 
 <article>
@@ -149,8 +161,10 @@ Gertjans-MacBook-Pro:presentation gertjan$ git push
 
 
 <article>
-    <video autoplay>video</video>
+    <h3>Learned some cool stuff</h3>
+    <video autoplay style="float:right;margin-left:30px;margin-top:50px;">video</video>
     <section>
+        <span class="type">css3</span>
         <pre>
 video {
     width:320px;
@@ -160,12 +174,14 @@ video {
 }</pre>
     </section>
     <section>
+        <span class="type">javascript</span>
         <pre>
 navigator.webkitGetUserMedia({video: true, audio: false}, function(localMediaStream) {
     var video = document.querySelector('video');
     video.src = window.URL.createObjectURL(localMediaStream);
 });</pre>
     </section>
+    <p>Unfortunately only works on webkit based browsers (Chrome/Safari)</p>
     <script>
         var onFail = function(e) {
             console.log('Rejected!', e);
@@ -189,6 +205,7 @@ navigator.webkitGetUserMedia({video: true, audio: false}, function(localMediaStr
     <h5>Integration test framework</h5>
     <p>run from maven, debugging your integration tests</p>
     <section>
+        <span class="type">java</span>
         <pre>
 @RunWith(Arquillian.class)
 public class BasicClientTest {
@@ -211,6 +228,7 @@ public class BasicClientTest {
 <article class="smaller">
     <h3>Arquillian - Selenium</h3>
     <section>
+        <span class="type">java</span>
         <pre>
 @Drone DefaultSelenium browser;
 @ArquillianResource URL deploymentUrl;
@@ -229,6 +247,7 @@ public void should_login_successfully() {
         </pre>
     </section>
     <section>
+        <span class="type">xml</span>
         <pre>
 &lt;extension qualifier="selenium">
     &lt;property name="browser">*googlechrome&lt;/property>
@@ -243,15 +262,15 @@ public void should_login_successfully() {
     <h3>
        new Java API's (couple of talks combined)
     </h3>
-    <ul class="build">
+    <ul>
         <li>
-            JSR 353: Java API for JSON Parser
+            <strong>JSR 353: Java API for JSON Parser</strong>
         <li>
-        Stream based, like the StAX Parser
-        <br>register to Events to handle objects as they come in<br>
-        Will probably in JavaEE 7
+            Stream based, like the StAX Parser
+            <br>register to Events to handle objects as they come in<br>
+            Probably in JavaEE 7
         <li>
-            JSR 356: Java API for websocket
+            <strong>JSR 356: Java API for websocket</strong>
         <li>
             Simple protocol to send/receive text/binary, some async support
             works by opening a standard http connection and then upgrade to websocket<br>
@@ -263,14 +282,20 @@ public void should_login_successfully() {
     <h3>Lambda's, (parallel) collections</h3>
     <h5>Java (JDK 8)</h5>
     <section>
+        <span class="type">java</span>
         <pre>
-(String s1, String s2) -> s1.length() - s2.length();
+int i = 1;
+1.foreach(100) { |num| i *= num; }
+puts i;
+
+Int difference = (String s1, String s2) -> s1.length() - s2.length();
         </pre>
     </section>
     <h5>Scala (now)</h5>
     <section>
+        <span class="type">scala</span>
         <pre>
-        (s1: String, s2: String) => s1.length - s2.length
+val difference = (s1: String, s2: String) => s1.length - s2.length
         </pre>
     </section>
     <h4>Ceylon, Kotlin, Clojure have similar constructions</h4>
