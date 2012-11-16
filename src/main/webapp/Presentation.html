@@ -37,7 +37,7 @@
 
     video {
         width:320px;
-        heigth:180px;
+        heigth:160px;
         border:1px solid black;
         -webkit-filter: blur(10px);
     }
@@ -160,7 +160,7 @@ gertjan$ git push
 
 
 
-<article>
+<article class="smaller">
     <h3>Learned some cool stuff</h3>
     <video autoplay style="float:right;margin-left:30px;margin-top:50px;">video</video>
     <section>
@@ -176,10 +176,11 @@ video {
     <section>
         <span class="type">javascript</span>
         <pre>
-navigator.webkitGetUserMedia({video: true, audio: false}, function(localMediaStream) {
-    var video = document.querySelector('video');
-    video.src = window.URL.createObjectURL(localMediaStream);
-});</pre>
+navigator.webkitGetUserMedia({video: true, audio: false},
+    function(localMediaStream) {
+        var video = document.querySelector('video');
+        video.src = window.URL.createObjectURL(localMediaStream);
+    });</pre>
     </section>
     <p>Unfortunately only works on webkit based browsers (Chrome/Safari)</p>
     <script>
