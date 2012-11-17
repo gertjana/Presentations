@@ -12,7 +12,7 @@
   URL: http://code.google.com/p/html5slides/
 -->
 
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <title>Presentation</title>
 
@@ -37,9 +37,19 @@
 
     video {
         width:320px;
-        heigth:160px;
-        border:1px solid black;
+        height:240px;
+        border: 1px solid black;
+        float:right;
+    }
+
+    .blur {
         -webkit-filter: blur(10px);
+        filter: blur(10px);
+    }
+
+    .noblur {
+        -webkit-filter: blur(0px);
+        filter: blur(0px);
     }
 
     img.small {
@@ -85,6 +95,12 @@
         margin-bottom:5px !important;
     }
 
+    #toggleBlur {
+        float:right;
+        position:relative;
+        right:0px;
+    }
+
 </style>
 
 <body style='display: none'>
@@ -96,7 +112,7 @@ slides below. -->
 
 <article>
     <h1>Devoxx 2012</h1>
-    <h2>an impression</h2>
+    <h2>An impression</h2>
     <p>
         Daniel Neagu, Gertjan Assies<br>
         14-16 November 2012
@@ -104,11 +120,13 @@ slides below. -->
 </article>
 
 <article>
-    <h3>Eat your own dogfood</h3>
+    <h3>Eat your own ...</h3>
     <p>
-            This presentation is in HTML5<br>
-            It runs in OpenShift<br>
-            To update it all I have to do is change some html:
+        One thing I noticed was that a lot of presenters had html5 slides, running in the cloud.<br>
+        <br>
+        So .. this presentation is also in HTML5 and runs in OpenShift (Red Hat's paas solution)<br>
+        <br>
+        To update it all I have to do is change some html:
     </p>
     <section>
         <span class="type">bash</span>
@@ -162,15 +180,18 @@ gertjan$ git push
 
 <article class="smaller">
     <h3>Learned some cool stuff</h3>
-    <video autoplay style="float:right;margin-left:30px;margin-top:50px;">video</video>
+    <video class="blur" id="video" autoplay style="float:right;margin-left:30px;margin-top:50px;">video</video>
+
     <section>
         <span class="type">css3</span>
         <pre>
 video {
     width:320px;
-    heigth:180px;
-    border:1px solid black;
+    heigth:240px;
+    /* Chrome/Safari */
     -webkit-filter: blur(10px);
+    /* IE/Firefox */
+    filter: blur(10px);
 }</pre>
     </section>
     <section>
@@ -182,13 +203,22 @@ navigator.webkitGetUserMedia({video: true, audio: false},
         video.src = window.URL.createObjectURL(localMediaStream);
     });</pre>
     </section>
-    <p>Unfortunately only works on webkit based browsers (Chrome/Safari)</p>
+    <input id="toggleBlur" type="button" value="Click me">
+    <p>Grayscale, Brightness, Contrast are other filters that you can use</p>
     <script>
+        var myButton = document.getElementById("toggleBlur");
+        var myVideo = document.getElementById("video");
+        myButton.addEventListener('click', doSomething, false);
+
+        function doSomething() {
+            myVideo.className = (myVideo.className == "blur") ? "noblur" : "blur";
+        }
+
         var onFail = function(e) {
             console.log('Rejected!', e);
         };
 
-        navigator.webkitGetUserMedia({video: true, audio: false}, function(localMediaStream) {
+        navigator.webkitGetUserMedia({video: true, audio: true}, function(localMediaStream) {
             var video = document.querySelector('video');
             video.src = window.URL.createObjectURL(localMediaStream);
 
@@ -204,7 +234,7 @@ navigator.webkitGetUserMedia({video: true, audio: false},
         Arquillian
     </h3>
     <h5>Integration test framework</h5>
-    <p>run from maven, debugging your integration tests</p>
+    <p>runs from your IDE or maven, allows for debugging your integration tests, test on multiple Application Servers</p>
     <section>
         <span class="type">java</span>
         <pre>
@@ -257,7 +287,22 @@ public void should_login_successfully() {
     </section>
 </article>
 
-
+<article>
+    <h3>TomEE - a Java EE6 Application Server based on Tomcat</h3>
+    <ul>
+        <li>
+            Standard Tomcat with added enterprise features <br>
+            (EJB, JPA, CDI, JSF, WS-*)
+        <li>
+            Passes the EE6 Certification tests
+        <li>
+            Fast and Lean and still looks and acts like Tomcat
+        <li>
+            Convention over configuration:<br>
+            The minimum configuration needed is:
+            <pre>&lt;tomee>&lt;/tomee></pre>
+    </ul>
+</article>
 
 <article>
     <h3>
@@ -352,8 +397,9 @@ val difference = (s1: String, s2: String) => s1.length - s2.length
 
 <article>
     <h1>
-        Q&A
+        Questions
     </h1>
+    <h4>http://presentation-gassies.rhcloud.com/Presentation.html</h4>
 </article>
 
 </section>
