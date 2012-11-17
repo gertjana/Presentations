@@ -393,7 +393,68 @@ val difference = (s1: String, s2: String) => s1.length - s2.length
     </ul>
 </article>
 
+<article class="smaller">
+    <h3>Ceylon - Introduction</h3>
+    <p>Kick Ass Type system!</p>
+    <section>
+        <span class="type">Ceylon</span>
+        <pre>
+shared void run(String? nullableString) {
+    //String? means String|Nothing
+    if (exists nullableString) {
+        // nullableString is of Type String here
+        print(nullableString);
+    }
+}</pre>
+    </section>
+    <p>Modular from the ground up</p>
+    <section>
+        <span class="type">Ceylon</span>
+        <pre>
+doc "my Kickass application"
+license 'http://www.gnu.org/licenses/lgpl.html'
+module com.acme.kickass '1.0.0.beta' {
+    transitive import ceylon.language '0.4.0';
+    import org.hibernate '3.0.0';
+    optional import org.junit '4.8.1';
+}</pre>
+    </section>
+</article>
 
+<article class="smaller">
+    <h3>Effective Scala</h3>
+    <p>Use the for loop to validate parameters or to filter collections </p>
+    <section>
+        <span class="type">scala</span>
+        <pre>
+def userPermissions(session:Session, username:String, password:String) {
+    for {
+        u &lt; username;
+        p &lt; password;
+    } yield session.getPermissions(u,p);
+}
+        </pre>
+    </section>
+    <section>
+        <span class="type">scala</span>
+        <pre>
+scala>for (val x <- 1 to 100) {if x % 2 == 0} yield x) toList
+res0: IndexedSeq[Int] = Vector(2,4,6,8,10 ....
+scala>val list = Stream.from(1) take 100 toList
+list: List[Int] = List(1,2,3,4,5 ....
+scala>list.filter( _ % 2 == 0 )
+res59: List[Int] = List(2,4,6,8,10 ....
+        </pre>
+    </section>
+</article>
+
+<article>
+    <h3>Effective Dependency Injection</h3>
+</article>
+
+<article>
+    <h3>Java on the Raspberry Pi</h3>
+</article>
 
 <article>
     <h1>
