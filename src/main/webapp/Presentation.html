@@ -112,25 +112,37 @@ slides below. -->
 
 <article>
     <h1>Devoxx 2012</h1>
-    <h2>An impression</h2>
     <p>
         Daniel Neagu, Gertjan Assies<br>
         14-16 November 2012
     </p>
 </article>
 
-<article>
+<article class="smaller">
     <h3>Eat your own ...</h3>
     <p>
-        One thing I noticed was that a lot of presenters had html5 slides, running in the cloud.<br>
-        <br>
+        One thing I noticed was that a lot of presenters had slides using html5, running in the cloud.<br>
         So .. this presentation is also in HTML5 and runs in OpenShift (Red Hat's paas solution)<br>
-        <br>
-        To update it all I have to do is change some html:
     </p>
     <section>
         <span class="type">bash</span>
         <pre>
+gertjan$ rhc create app -a myApp -t jboss-as7 -l [login@email.addres]
+gertjan$ git add remote quickstart git:github.com/openshift/quickstart-as7
+gertjan$ git pull quickstart -s recursive
+gertjan$ cp ~/Presentation.html src/main/webapp
+gertjan$ git add *
+gertjan$ git commit -m "added quickstart files + presentation"
+gertjan$ git push origin
+        </pre>
+    </section>
+    <p>
+        To update it all I have to do is change the html in Presentation.html:
+    </p>
+    <section>
+        <span class="type">bash</span>
+        <pre>
+gertjan$ git add src/main/webapp/Presentation.html
 gertjan$ git commit -m "added some slides"
 gertjan$ git push
         </pre>
@@ -174,7 +186,21 @@ gertjan$ git push
     </ul>
 </article>
 
-
+<article>
+    <h3>Cloud Providers (Paas)</h3>
+    <ul>
+        <li>
+            OpenShift (Redhat)<br>
+            <small>Opensource, Smallest tier is free, supports java, php, node.js, ruby on mysql, postgres, mongo, redis db's,
+            has a diy cartridge allowing almost anything to run there (if it runs on linux)</small>
+        <li>
+            Cloudfoundry (VMWare)<br>
+            <small>Free for now (beta), supports Java, Php, Ruby, Node.js, on most databases </small>
+        <li>
+            Cloudbees<br>
+            <small>Has Dev@Cloud (build tools, jenkins) and Run@Cloud (focuses on running Java apps, with db and monitoring services)</small>
+    </ul>
+</article>
 
 
 
@@ -320,31 +346,25 @@ public void should_login_successfully() {
         <li>
             Simple protocol to send/receive text/binary, some async support
             works by opening a standard http connection and then upgrade to websocket<br>
+            Both Annotation based and interface based API<br>
             will be in JavaEE 7
     </ul>
 </article>
 
 <article>
-    <h3>Lambda's, (parallel) collections</h3>
-    <h5>Java (JDK 8)</h5>
+    <h3>Lambda's, or closures</h3>
+    <p>Java (JDK 8, so somewhere in 2015)</p>
     <section>
         <span class="type">java</span>
-        <pre>
-int i = 1;
-1.foreach(100) { |num| i *= num; }
-puts i;
-
-Int difference = (String s1, String s2) -> s1.length() - s2.length();
-        </pre>
+        <pre>int difference = (String s1, String s2) -> s1.length() - s2.length();</pre>
     </section>
-    <h5>Scala (now)</h5>
+    <p>Scala (now)</p>
     <section>
         <span class="type">scala</span>
-        <pre>
-val difference = (s1: String, s2: String) => s1.length - s2.length
-        </pre>
+        <pre>val difference = (s1: String, s2: String) => s1.length - s2.length</pre>
     </section>
-    <h4>Ceylon, Kotlin, Clojure have similar constructions</h4>
+    <p>Ceylon, Kotlin, Clojure have similar constructions</p>
+    <p>similar, the collection enhancements are pretty much available in the languages mentioned here.</p>
 </article>
 
 
@@ -414,7 +434,7 @@ shared void run(String? nullableString) {
 doc "my Kickass application"
 license 'http://www.gnu.org/licenses/lgpl.html'
 module com.acme.kickass '1.0.0.beta' {
-    transitive import ceylon.language '0.4.0';
+    export import com.acme.utile '1.0.0';
     import org.hibernate '3.0.0';
     optional import org.junit '4.8.1';
 }</pre>
@@ -460,7 +480,10 @@ res59: List[Int] = List(2,4,6,8,10 ....
     <h1>
         Questions
     </h1>
-    <h4>http://presentation-gassies.rhcloud.com/Presentation.html</h4>
+    <h4>This Presentation:</h4>
+    <p>http://presentation-gassies.rhcloud.com/Presentation.html</p>
+    <h4>The Html5 Slides</h4>
+    <p>https://code.google.com/p/html5slides/</p>
 </article>
 
 </section>
