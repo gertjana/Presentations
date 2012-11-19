@@ -162,7 +162,7 @@ gertjan$ git push
 
 <article>
     <h3>
-        Sponsors
+        Main sponsor keynotes:
     </h3>
 
     <p><img src="images/Google2.gif"><br>
@@ -179,10 +179,14 @@ gertjan$ git push
 <article>
     <h3>Geek Culture</h3>
     <ul>
-        <li><strong>Every</strong> Speaker had a MacBookPro</li>
-        <li>Most of the developers too</li>
-        <li>Most used IntelliJ IDE</li>
-        <li>Most Presentations were made in HTML5</li>
+        <li><strong>Every</strong> Speaker had a MacBook<br>
+        <small>no exception! although the google speakers used stickers to cover up the apple logo :)</small>
+        <li>Most of the developers too
+        <li>Most used IntelliJ IDE
+        <li>3400 developers<br>
+        <small>but only 4% women</small>
+        <li>Most Presentations were made in HTML5<br>
+        <small>although some of the best talks didn't use slides at all :)</small>
     </ul>
 </article>
 
@@ -452,29 +456,65 @@ def userPermissions(session:Session, username:String, password:String) {
         u &lt; username;
         p &lt; password;
     } yield session.getPermissions(u,p);
-}
-        </pre>
+}</pre>
     </section>
     <section>
         <span class="type">scala</span>
         <pre>
-scala>for (val x <- 1 to 100) {if x % 2 == 0} yield x) toList
-res0: IndexedSeq[Int] = Vector(2,4,6,8,10 ....
-scala>val list = Stream.from(1) take 100 toList
-list: List[Int] = List(1,2,3,4,5 ....
-scala>list.filter( _ % 2 == 0 )
-res59: List[Int] = List(2,4,6,8,10 ....
-        </pre>
+scala><strong>for (val x <- 1 to 100) {if x % 2 == 0} yield x) toList</strong>
+res0: IndexedSeq[Int] = Vector(2,4,6,8,10 ....<br>
+scala><strong>val list = Stream.from(1) take 100 toList</strong>
+list: List[Int] = List(1,2,3,4,5 ....<br>
+scala><strong>list.filter( _ % 2 == 0 )</strong>
+res59: List[Int] = List(2,4,6,8,10 ....</pre>
     </section>
 </article>
 
 <article>
     <h3>Effective Dependency Injection</h3>
+    <p>after a quick DI refresher, talk focused on best practices</p>
+    <ul>
+        <li>
+            Use Contructor Injection
+        <li>
+            Composition over Inheritance
+        <li>
+             ...
+        <li>
+        <li>
+    </ul>
 </article>
 
 <article>
     <h3>Java on the Raspberry Pi</h3>
+    <p>Simon Ritter, Oracle's Java Evangelist<br>
+       Famous for his weird demo's.</p>
+    <p>Java Stack on the Raspberry Pi, some native c code, plus jni classes to map the GPIO and USB pins to java classes</p>
+    <p>Demoed controlling a robot arm with a game pad controller and a lego motor with his mind</p>
 </article>
+
+<article>
+    <h3>Agile++ - Continuous ...</h3>
+    <ul>
+        <li>Continuous Integration<br>
+        <small>Software should be always buildable</small>
+
+        <li>Continuous Deployment<br>
+        <small>Software should be always deployable</small>
+        <li>Continuous Delivery<br>
+        <small>Software should be always deliverable</small>
+    </ul>
+</article>
+
+<article>
+    <h3>Agile++ - Take the pain early</h3>
+    <q>If it hurts do it more often.</q>
+    <img style="float:right;width:400px;" src="images/graph.png">
+    <small>Martin Fowler</small>
+</article>
+
+
+
 
 <article>
     <h1>
