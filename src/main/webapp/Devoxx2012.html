@@ -174,7 +174,7 @@ gertjan$ git push
         Besides bringing out new versions of Java and JavaFX,<br>
         Focus is more on embedded world "The Internet of Things", small connected devices
     </p>
-    <p><img src="images/redhat.png"><br>
+    <p><img src="images/jbosscorp_logo.png"><br>
         JBoss is getting a new name, voted by the community<br>
         WildFly, BaseJump, jBeret, Petatos, Jocron
 
@@ -268,7 +268,7 @@ navigator.webkitGetUserMedia({video: true, audio: false},
 <article class="smaller">
     <h3>Geek Culture - Behaviour Driven Development 2</h3>
     <section>
-        <span class="type">java</span>
+        <span class="type">java (JBehave)</span>
         <pre>
 @Given("the card is disabled")
 public void givenCardIsDisabled() {
@@ -285,7 +285,7 @@ public void thenATMShouldRetainCard() {
 }</pre>
     </section>
     <section>
-        <span class="type">scala</span>
+        <span class="type">scala (Specs2)</span>
 <pre>
 "Adding stock for glimepiride" should {
     "increase the amount by 90" in {
@@ -449,7 +449,7 @@ public void should_login_successfully() {
         <li>
             Super easy to setup, communication/data is all JSON
         <li>
-            Self organizing, data distribution on available nodes
+            Self organizing, data distribution/replication on available nodes
     </ul>
     <img style="float:right;width:400px;margin-left:10px;" src="images/elasticsearch.png">
     <section>
@@ -476,15 +476,23 @@ public void should_login_successfully() {
 
 <article>
     <h3>Functional Compilers from CFG to EXE</h3>
-    <p>
-        Too complex and too much to go into here in detail<br>
-        <br>
-        source -> tokenizer -> AST code<br>
-        <br>
-        Speaker ended almost every sentence with " and that's fun"<br>
-        Especially when he was talking about something very complex or difficult<br>
-
-    </p>
+    <ul>
+        <li>
+            Talk focused on creating a simple compiler in Scala
+        <li>
+            Compilers typically compile something that we don't know how to handle into something we do know how to handle.
+        <li>
+            1. Tokenize your source file.
+        <li>
+            2. Create a AST (Abstract Syntax Tree) from it
+        <li>
+            2b. If needed transform the tree into another tree.
+        <li>
+            4. Generate code (not in scope for this meeting as it is the easiest part)
+        <li>
+            The barefooted speaker ended almost every sentence with " and that's fun" especially when talking about complex stuff
+        <li>
+    </ul>
 </article>
 
 
