@@ -142,7 +142,7 @@ gertjan$ git push origin
     <section>
         <span class="type">bash</span>
         <pre>
-gertjan$ git add src/main/webapp/Presentation.html
+gertjan$ git add src/main/webapp/Devoxx2012.html
 gertjan$ git commit -m "added some slides"
 gertjan$ git push
         </pre>
@@ -160,7 +160,7 @@ gertjan$ git push
     </ul>
 </article>
 
-<article>
+<article class="smaller">
     <h3>
         Main sponsor keynotes:
     </h3>
@@ -174,19 +174,24 @@ gertjan$ git push
         Besides bringing out new versions of Java and JavaFX,<br>
         Focus is more on embedded world "The Internet of Things", small connected devices
     </p>
+    <p><img src="images/redhat.png"><br>
+        JBoss is getting a new name, voted by the community<br>
+        WildFly, BaseJump, jBeret, Petatos, Jocron
+
+    </p>
 </article>
 
 <article>
-    <h3>Geek Culture</h3>
+    <h3>Geek Culture - Trivia</h3>
     <ul>
+        <li>Most used laptop: Macbook Pro/Air
         <li><strong>Every</strong> Speaker had a MacBook<br>
-        <small>no exception! although the google speakers used stickers to cover up the apple logo :)</small>
-        <li>Most of the developers too
-        <li>Most used IntelliJ IDE
+        <small>No exception! although the google speakers used stickers to cover up the apple logo :)</small>
+        <li>Most used IDE: Intellij
         <li>3400 developers<br>
-        <small>but only 4% women</small>
-        <li>Most Presentations were made in HTML5<br>
-        <small>although some of the best talks didn't use slides at all :)</small>
+        <small>But only 4% women</small>
+        <li>A lot of presentations were made in HTML5<br>
+        <small>Although some of the best talks didn't use slides at all :)</small>
     </ul>
 </article>
 
@@ -240,6 +245,58 @@ navigator.webkitGetUserMedia({video: true, audio: false},
         }, onFail);
     </script>
 </article>
+
+<article>
+    <h3>Geek Culture - Behaviour Driven Development</h3>
+    <p>What if Developer, Tester, Product Owner, Business analyst all speak the same language?</p>
+    <ul>
+        <li>
+            Build only features that add value
+        <li>
+            Result in less wasted effort (through traceability)
+        <li>
+            Improve communication
+        <li>
+            Get a higher quality, better tested product
+   </ul>
+    <p>User Story<br>
+        <strong>As a [Role] I want [Feature] So that I receive [Value]</strong></p>
+    <p>Specification<br>
+        <strong>Given [Context] When [Event Occurs] Then  [Outcome]</strong></p>
+</article>
+
+<article class="smaller">
+    <h3>Geek Culture - Behaviour Driven Development 2</h3>
+    <section>
+        <span class="type">java</span>
+        <pre>
+@Given("the card is disabled")
+public void givenCardIsDisabled() {
+    card = new Card().setValid(false);
+}
+@When("Inserting card")
+public void whenInsertingCard() {
+    atm.insert(card);
+}
+@Then("the ATM should retain the card")
+public void thenATMShouldRetainCard() {
+    Assert.assertNull(atm.dispense());
+    Assert.assertTrue(throwable instanceof CardRetainedException);
+}</pre>
+    </section>
+    <section>
+        <span class="type">scala</span>
+<pre>
+"Adding stock for glimepiride" should {
+    "increase the amount by 90" in {
+        MedicateRest.addStock(user.id, glimepiride.id, 90);
+        val stock = Stock.find(By(Stock.medicine, glimepiride.id), By(Stock.user, user.id));
+        stock.amount must be equalTo(178.5)
+    }
+}</pre>
+    </section>
+</article>
+
 
 <article class="smaller">
     <h3>
@@ -303,22 +360,27 @@ public void should_login_successfully() {
     <h3>TomEE - a Java EE6 Application Server based on Tomcat</h3>
     <ul>
         <li>
-            Standard Tomcat with added enterprise features <br>
-            (EJB, JPA, CDI, JSF, WS-*)
+            Standard Tomcat with added enterprise features (EJB, JPA, CDI, JSF, WS-*)
         <li>
-            Passes the EE6 Certification tests
+            Passes the (Web profile) EE6 Certification tests (tests run on 100+ amazon EC2 micro instances with arquillian and run with default mem settings with the hour)
         <li>
-            Fast and Lean and still looks and acts like Tomcat
+            What's not in it: CMP, CORBA, JAX-RPC
         <li>
-            Convention over configuration:<br>
-            The minimum configuration needed is:
+            What's in the plus package: JAX-RS, JAX-WS, JMS
+        <li>
+            Fast and Lean and still looks and acts like Tomcat<br>
+            (27Mb package that runs in 64Mb of memory)
+        <li>
+            Convention over configuration: The minimum configuration needed is:
             <pre>&lt;tomee>&lt;/tomee></pre>
+        <li>
+            Integration in Maven and Arquillian
     </ul>
 </article>
 
 <article>
     <h3>
-       new Java API's (couple of talks combined)
+       Java Enhancements - new Java API's (couple of talks combined)
     </h3>
     <ul>
         <li>
@@ -338,19 +400,26 @@ public void should_login_successfully() {
 </article>
 
 <article>
-    <h3>Lambda's, or closures</h3>
-    <p>Java (JDK 8, so somewhere in 2015)</p>
+    <h3>Java Enhancements - Lambda's (closures), higher order functions</h3>
+    <p>Java (JDK 8 or 9, so somewhere in 2015 or later)</p>
     <section>
         <span class="type">java</span>
         <pre>int difference = (String s1, String s2) -> s1.length() - s2.length();</pre>
     </section>
-    <p>Scala (now)</p>
+    <p>Scala, Ceylon, Kotlin (now available)</p>
     <section>
         <span class="type">scala</span>
-        <pre>val difference = (s1: String, s2: String) => s1.length - s2.length</pre>
+        <pre>val difference = (s1: String, s2: String) :Int => s1.length - s2.length</pre>
     </section>
-    <p>Ceylon, Kotlin, Clojure have similar constructions</p>
-    <p>similar, the collection enhancements are pretty much available in the languages mentioned here.</p>
+    <section>
+        <span class="type">ceylon</span>
+        <pre>function difference(String s1, String s2) { return s1.length - s2.length; }</pre>
+    </section>
+    <section>
+        <span class="type">kotlin</span>
+        <pre>fun difference(s1: String, s2: String) : Int { return s1.length - s2.length }</pre>
+    </section>
+    <p>similar, the collection enhancements planned for jdk9 are pretty much available in the languages mentioned here.</p>
 </article>
 
 <article>
@@ -370,28 +439,48 @@ public void should_login_successfully() {
 </article>
 
 
-<article>
+<article class="smaller">
     <h3>
         Elastic Search
     </h3>
     <ul>
         <li>
-            think lucene, but distributed
+            Each node/shard is build on top on a lucene index
         <li>
             Super easy to setup, communication/data is all JSON
         <li>
-            Powerfull statistics<br>
-            Use case: 10 shards, 8 billion LOG Events<br>
-            showing, histogram, trends
-        <li>
-
+            Self organizing, data distribution on available nodes
     </ul>
+    <img style="float:right;width:400px;margin-left:10px;" src="images/elasticsearch.png">
+    <section>
+            <span class="type">Create Index</span>
+            <pre>
+{ "tweets" : { "numberOfShards" : 3, "numberOfReplicas" : 1}}</pre>
+        </section>
+        <section>
+            <span class="type">Store Data</span>
+            <pre>
+{   "user": "tweety",
+    "postDate": "2009-11-15T13:12:00",
+    "message": "Did Obama win the #election? anybody knows?"}</pre>
+        </section>
+        <section>
+            <span class="type">Query</span>
+            <pre>
+{ "query" : {
+        "text" : { "message": "obama" },
+        "range" : { "postDate" : { "from" : "2009-11-15T13:00:00", "to" : "2009-11-15T14:00:00" }}}}</pre>
+        </section>
+
 </article>
 
 <article>
     <h3>Functional Compilers from CFG to EXE</h3>
     <p>
-        Too complex and too much to go into here<br>
+        Too complex and too much to go into here in detail<br>
+        <br>
+        source -> tokenizer -> AST code<br>
+        <br>
         Speaker ended almost every sentence with " and that's fun"<br>
         Especially when he was talking about something very complex or difficult<br>
 
@@ -519,8 +608,8 @@ res59: List[Int] = List(2,4,6,8,10 ....</pre>
         Questions
     </h1>
     <h4>This Presentation:</h4>
-    <p>http://presentation-gassies.rhcloud.com/Presentation.html</p>
-    <h4>The Html5 Slides</h4>
+    <p>http://presentation-gassies.rhcloud.com/Devoxx2012.html</p>
+    <h4>The HTML5 Slides template</h4>
     <p>https://code.google.com/p/html5slides/</p>
 </article>
 
