@@ -246,57 +246,6 @@ navigator.webkitGetUserMedia({video: true, audio: false},
     </script>
 </article>
 
-<article>
-    <h3>Geek Culture - Behaviour Driven Development</h3>
-    <p>What if Developer, Tester, Product Owner, Business analyst all speak the same language?</p>
-    <ul>
-        <li>
-            Build only features that add value
-        <li>
-            Result in less wasted effort (through traceability)
-        <li>
-            Improve communication
-        <li>
-            Get a higher quality, better tested product
-   </ul>
-    <p>User Story<br>
-        <strong>As a [Role] I want [Feature] So that I receive [Value]</strong></p>
-    <p>Specification<br>
-        <strong>Given [Context] When [Event Occurs] Then  [Outcome]</strong></p>
-</article>
-
-<article class="smaller">
-    <h3>Geek Culture - Behaviour Driven Development 2</h3>
-    <section>
-        <span class="type">java (JBehave)</span>
-        <pre>
-@Given("the card is disabled")
-public void givenCardIsDisabled() {
-    card = new Card().setValid(false);
-}
-@When("Inserting card")
-public void whenInsertingCard() {
-    atm.insert(card);
-}
-@Then("the ATM should retain the card")
-public void thenATMShouldRetainCard() {
-    Assert.assertNull(atm.dispense());
-    Assert.assertTrue(throwable instanceof CardRetainedException);
-}</pre>
-    </section>
-    <section>
-        <span class="type">scala (Specs2)</span>
-<pre>
-"Adding stock for glimepiride" should {
-    "increase the amount by 90" in {
-        MedicateRest.addStock(user.id, glimepiride.id, 90);
-        val stock = Stock.find(By(Stock.medicine, glimepiride.id), By(Stock.user, user.id));
-        stock.amount must be equalTo(178.5)
-    }
-}</pre>
-    </section>
-</article>
-
 
 <article class="smaller">
     <h3>
@@ -440,9 +389,7 @@ public void should_login_successfully() {
 
 
 <article class="smaller">
-    <h3>
-        Elastic Search
-    </h3>
+    <h3>Elastic Search</h3>
     <ul>
         <li>
             Each node/shard is build on top on a lucene index
@@ -475,7 +422,7 @@ public void should_login_successfully() {
 </article>
 
 <article>
-    <h3>Functional Compilers from CFG to EXE</h3>
+    <h3>Code Theory - Functional Compilers from CFG to EXE</h3>
     <ul>
         <li>
             Talk focused on creating a simple compiler in Scala
@@ -497,23 +444,21 @@ public void should_login_successfully() {
 
 
 <article>
-    <h3>J2ObjC - Java to iOS translation and runtime</h3>
+    <h3>Frameworks - J2ObjC - Java to iOS translation and runtime</h3>
     <ul>
         <li>
             Focus on shareable code, NOT UI!
         <li>
             Uses Eclipse JDT to create the AST
         <li>
-
+            Developed by Google, opensourced on code.google.com
         <li>
-
-        <li>
-
+            Several mobile google apps depend on it
     </ul>
 </article>
 
 <article class="smaller">
-    <h3>Ceylon - Introduction</h3>
+    <h3>Other Languages - Ceylon - Introduction</h3>
     <p>Kick Ass Type system!</p>
     <section>
         <span class="type">Ceylon</span>
@@ -541,7 +486,7 @@ module com.acme.kickass '1.0.0.beta' {
 </article>
 
 <article class="smaller">
-    <h3>Effective Scala</h3>
+    <h3>Other Languages - Effective Scala</h3>
     <p>Use the for loop to validate parameters or to filter collections </p>
     <section>
         <span class="type">scala</span>
@@ -570,23 +515,77 @@ res59: List[Int] = List(2,4,6,8,10 ....</pre>
     <p>after a quick DI refresher, talk focused on best practices</p>
     <ul>
         <li>
-            Use Contructor Injection
-        <li>
             Composition over Inheritance
         <li>
-             ...
+            Contract/Service paradigm : define your APIs, hide your implementation, use Binding to publish.
         <li>
+            Use BindingAnnotations when multiple implementation exists
         <li>
+            Use Scoping everywhere.
+        <li>
+            Inject instead of passing 'context' objects along
     </ul>
 </article>
 
 <article>
-    <h3>Java on the Raspberry Pi</h3>
+    <h3>Geek Culture - Java on the Raspberry Pi</h3>
     <p>Simon Ritter, Oracle's Java Evangelist<br>
        Famous for his weird demo's.</p>
     <p>Java Stack on the Raspberry Pi, some native c code, plus jni classes to map the GPIO and USB pins to java classes</p>
     <p>Demoed controlling a robot arm with a game pad controller and a lego motor with his mind</p>
 </article>
+
+<article>
+    <h3>Behaviour Driven Development</h3>
+    <p>What if Developer, Tester, Product Owner, Business analyst all speak the same language?</p>
+    <ul>
+        <li>
+            Build only features that add value
+        <li>
+            Result in less wasted effort (through traceability)
+        <li>
+            Improve communication
+        <li>
+            Get a higher quality, better tested product
+    </ul>
+    <p>User Story<br>
+        <strong>As a [Role] I want [Feature] So that I receive [Value]</strong></p>
+    <p>Specification<br>
+        <strong>Given [Context] When [Event Occurs] Then  [Outcome]</strong></p>
+</article>
+
+<article class="smaller">
+    <h3>Behaviour Driven Development 2</h3>
+    <section>
+        <span class="type">java (JBehave)</span>
+        <pre>
+@Given("the card is disabled")
+public void givenCardIsDisabled() {
+    card = new Card().setValid(false);
+}
+@When("Inserting card")
+public void whenInsertingCard() {
+    atm.insert(card);
+}
+@Then("the ATM should retain the card")
+public void thenATMShouldRetainCard() {
+    Assert.assertNull(atm.dispense());
+    Assert.assertTrue(throwable instanceof CardRetainedException);
+}</pre>
+    </section>
+    <section>
+        <span class="type">scala (Specs2)</span>
+<pre>
+"Adding stock for glimepiride" should {
+    "increase the amount by 90" in {
+        MedicateRest.addStock(user.id, glimepiride.id, 90);
+        val stock = Stock.find(By(Stock.medicine, glimepiride.id), By(Stock.user, user.id));
+        stock.amount must be equalTo(178.5)
+    }
+}</pre>
+    </section>
+</article>
+
 
 <article>
     <h3>Agile++ - Continuous ...</h3>
