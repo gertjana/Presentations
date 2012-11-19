@@ -130,7 +130,7 @@ slides below. -->
 gertjan$ rhc create app -a myApp -t jboss-as7 -l [login@email.addres]
 gertjan$ git add remote quickstart git:github.com/openshift/quickstart-as7
 gertjan$ git pull quickstart -s recursive
-gertjan$ cp ~/Presentation.html src/main/webapp
+gertjan$ cp ~/Devoxx2012.html src/main/webapp
 gertjan$ git add *
 gertjan$ git commit -m "added quickstart files + presentation"
 gertjan$ git push origin
@@ -190,26 +190,8 @@ gertjan$ git push
     </ul>
 </article>
 
-<article>
-    <h3>Cloud Providers (Paas)</h3>
-    <ul>
-        <li>
-            OpenShift (Redhat)<br>
-            <small>Opensource, Smallest tier is free, supports java, php, node.js, ruby on mysql, postgres, mongo, redis db's,
-            has a diy cartridge allowing almost anything to run there (if it runs on linux)</small>
-        <li>
-            Cloudfoundry (VMWare)<br>
-            <small>Free for now (beta), supports Java, Php, Ruby, Node.js, on most databases </small>
-        <li>
-            Cloudbees<br>
-            <small>Has Dev@Cloud (build tools, jenkins) and Run@Cloud (focuses on running Java apps, with db and monitoring services)</small>
-    </ul>
-</article>
-
-
-
 <article class="smaller">
-    <h3>Learned some cool stuff</h3>
+    <h3>Geek Culture - Learned some cool stuff</h3>
     <video class="blur" id="video" autoplay style="float:right;margin-left:30px;margin-top:50px;">video</video>
 
     <section>
@@ -369,6 +351,22 @@ public void should_login_successfully() {
     </section>
     <p>Ceylon, Kotlin, Clojure have similar constructions</p>
     <p>similar, the collection enhancements are pretty much available in the languages mentioned here.</p>
+</article>
+
+<article>
+    <h3>Cloud Providers (Paas)</h3>
+    <ul>
+        <li>
+            OpenShift (Redhat)<br>
+            <small>Opensource, Smallest tier is free, supports java, php, node.js, ruby on mysql, postgres, mongo, redis db's,
+                has a diy cartridge allowing almost anything to run there (if it runs on linux)</small>
+        <li>
+            Cloudfoundry (VMWare)<br>
+            <small>Free for now (beta), supports Java, Php, Ruby, Node.js, on most databases </small>
+        <li>
+            Cloudbees<br>
+            <small>Has Dev@Cloud (build tools, jenkins) and Run@Cloud (focuses on running Java apps, with db and monitoring services)</small>
+    </ul>
 </article>
 
 
