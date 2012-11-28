@@ -224,7 +224,7 @@ Summary="something big happened"
     </article>
 
 
-    <article class="smaller">
+    <article>
         <h3>From Template to webpage</h3>
         <section>
 
@@ -241,7 +241,28 @@ Summary="something big happened"
                     <td>adf://taf:claim:audiencemanager</td>
                 </tr>
             </table>
+            <p>
+                Here the Data source is the Ambient Data Framework<br>
+                more specific all claims belonging to audience manager<br>
+                <table>
+                    <tr>
+                        <th  colspan="2">Another examples of data sources</th>
+                    </tr>
+                    <tr>
+                        <td>http://weather.com/api/localweather.xml</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>component://Component.Fields.FieldName</td>
+                        <td></td>
+                    </tr>
+                </table>
+            </p>
         </section>
+    </article>
+
+    <article>
+        <h3>From Template to webpage 2</h3>
         <section>
             <span class="type">Dreamweaver</span>
             <pre>
@@ -254,20 +275,33 @@ Summary="something big happened"
 @@EndRenderWidget()@@</pre>
         </section>
         <section>
+            <table>
+                <tr>
+                    <td><img src="images/widget_finish_action.png"/></td>
+                    <td>A Template building block will take care of the transformation to tcdl tags
+                        <br>(In case of a static widget just render the content)</td>
+                </tr>
+            </table>
+
+        </section>
+    </article>
+    <article>
+        <h3>From Template to webpage 3</h3>
+        <section>
             <span class="type">(Published) Template</span>
             <pre>
 &lt;tcdl:widget name="user profile" protocol="adf" data="taf:claim:audiencemanager">
     &lt;div class="userprofile">
-        &lt:tcdl:widgetField value="contact:firstname" decorator="text" />&amp;nbsp;
-        &lt:tcdl:widgetField value="contact:lastname" decorator="text" />&lt;br>
-        &lt:tcdl:widgetField value="contact:email" decorator="email-link" />
+        &lt;tcdl:widgetField value="contact:firstname" decorator="text" />&amp;nbsp;
+        &lt;tcdl:widgetField value="contact:lastname" decorator="text" />&lt;br>
+        &lt;tcdl:widgetField value="contact:email" decorator="email-link" />
     &lt;/div>
 &lt;/tcdl:widget>
             </pre>
         </section>
      </article>
     <article class="smaller">
-        <h3>From Template to Webpage 2</h3>
+        <h3>From Template to Webpage 4</h3>
         <section>
             <span class="type">JSP</span>
             <pre>
@@ -298,7 +332,7 @@ Summary="something big happened"
     </article>
 
     <article class="smaller">
-        <h3>WidgetDataProviders</h3>
+        <h3>Widget Data Providers</h3>
         <section>
             <span class="type">Java</span>
             <pre>
@@ -347,6 +381,11 @@ public class TestWidgetProvider() {
         <h1>
             Demo
         </h1>
+        <p>
+            <a href="http://devgertjan.global.sdl.corp:8080/SmartTarget/root/regions.jsp" target="_blank">Regions</a><br>
+            <a href="http://devgertjan.global.sdl.corp:8080/SmartTarget/root/presentation.jsp" target="_blank">This Presentation</a><br>
+            <a href="http://devgertjan.global.sdl.corp:8080/SmartTarget/root/holidaycenter.jsp" target="_blank">Tridion Holiday Center</a><br>
+        </p>
     </article>
     <article>
         <h1>
