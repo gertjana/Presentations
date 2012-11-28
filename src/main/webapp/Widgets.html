@@ -25,7 +25,7 @@
     /* Your individual styles here, or just use inline styles if that’s
     what you want. */
     .slides.template-default > article:not(.nobackground):not(.biglogo) {
-    background: url(images/devoxx-logo-small.jpg) 890px 545px no-repeat !important;
+    background: none no-repeat !important;
 
     background-color: white !important;
     }
@@ -95,6 +95,16 @@
         margin-bottom:5px !important;
     }
 
+    li {
+        list-style: disc;
+    }
+
+    li li {
+        list-style: square;
+        heigth:50%;
+        width:50%;
+    }
+
     #toggleBlur {
         float:right;
         position:relative;
@@ -110,21 +120,242 @@
 <!-- Your slides (<article>s) go here. Delete or comment out the
 slides below. -->
 
-<article>
-    <h1>Widgets</h1>
-    <p>
-        Gertjan Assies<br>
-        29 November 2012
-    </p>
-</article>
+    <article class="fill">
+        <h1>Widgets - Proof of Concept</h1>
+        <p style="color:white;">
+            <img src="images/laptop.jpg">
+            Gertjan Assies<br>
+            29 November 2012
 
-<article>
-    <h1>
-        Questions
-    </h1>
-    <h4>This Presentation:</h4>
-    <p>http://presentation-gassies.rhcloud.com/Widgets.html</p>
-</article>
+        </p>
+    </article>
+    <article>
+        <h3>Component Presentation</h3>
+        <div class="build">
+        <p><br>
+            A componentpresentation is a combination of a component and a template</p>
+        <table>
+            <tr>
+                <th>Component</th>
+                <th>Template</th>
+            </tr>
+            <tr>
+                <td>
+                    <pre>
+Title="Big news"
+Summary="something big happened"
+
+                    </pre>
+                </td>
+                <td>
+                    <pre>
+&lt;article>
+    &lt;h3>Big News&lt;/h3>
+    &lt;p>something big happened&lt;/p>
+&lt;/article></pre>
+                </td>
+            </tr>
+        </table>
+        </div>
+    </article>
+    <article>
+        <h3>Widgets</h3>
+        <p>
+            Widgets are Component Presentations that have (or are):
+        </p>
+        <ul class="build">
+            <li>
+                a defined interface to the outside world.
+            <li>
+                able to connect to a Data Source.
+            <li>
+                able to consume a generic Data model.
+            <li>
+                manageable as a single entity.
+            <li>
+                of a static or dynamic nature.
+        </ul>
+    </article>
+
+    <article>
+        <h3>Static Widgets</h3>
+        <p>
+            ... are rendered by the Publisher, the functionality is in your (modular) Templates
+        </p>
+        <h4>Examples</h4>
+        <ul>
+            <li>
+                A list of ComponentPresentations<br>
+                <small>Rendered in your template</small>
+            <li>
+                Static content<br>
+                <small>don't really need a widget for this</small>
+            <li>
+                Content from a external system.<br>
+                <small>Stock counts from your inventory system</small>
+        </ul>
+    </article>
+
+    <article>
+        <h3>Dynamic Widgets</h3>
+        <p>
+            ... are rendered runtime, the functionality is in your jsp, aspx, or rel
+        </p>
+        <h4>Examples</h4>
+        <ul>
+            <li>
+                A list of ComponentPresentations<br>
+                <small>but now by doing a broker query</small>
+            <li>
+                Ambient Data Framework: Audience Management User profile<br>
+                <small>reads the AM Data from the ADF at runtime</small>
+            <li>
+                Webservice: Weather Widget<br>
+                <small>connects to a external webservice</small>
+        </ul>
+    </article>
+
+    <article>
+        <h3>Modular Templates</h3>
+        <br>
+        <img src="images/widget_finish_action.png"/><br>
+        <p>A 'Widget Finish Actions' Template building block will render static widgets<br>
+           Otherwise it will leave &lt;tcdl:...> tags in.</p>
+    </article>
+
+
+    <article class="smaller">
+        <h3>From Template to webpage</h3>
+        <section>
+
+            <table>
+                <tr>
+                    <th colspan="2">Widget Configuration (Embedded schema)</th>
+                </tr>
+                <tr>
+                    <td>Name</td>
+                    <td>User Profile</td>
+                </tr>
+                <tr>
+                    <td>DataSource</td>
+                    <td>adf://taf:claim:audiencemanager</td>
+                </tr>
+            </table>
+        </section>
+        <section>
+            <span class="type">Dreamweaver</span>
+            <pre>
+@@RenderWidget()@@
+    &lt;div class="userprofile">
+        @RenderWidgetField("contact:firstname", "text")&amp;nbsp;
+        @RenderWidgetField("contact:lastname", "text")&lt;br>
+        @RenderWidgetField("contact:email", "email-link")
+    &lt;/div>
+@@EndRenderWidget()@@</pre>
+        </section>
+        <section>
+            <span class="type">(Published) Template</span>
+            <pre>
+&lt;tcdl:widget name="user profile" protocol="adf" data="taf:claim:audiencemanager">
+    &lt;div class="userprofile">
+        &lt:tcdl:widgetField value="contact:firstname" decorator="text" />&amp;nbsp;
+        &lt:tcdl:widgetField value="contact:lastname" decorator="text" />&lt;br>
+        &lt:tcdl:widgetField value="contact:email" decorator="email-link" />
+    &lt;/div>
+&lt;/tcdl:widget>
+            </pre>
+        </section>
+     </article>
+    <article class="smaller">
+        <h3>From Template to Webpage 2</h3>
+        <section>
+            <span class="type">JSP</span>
+            <pre>
+&lt;tridion:widget name="User Profile" protocol="adf" data="taf:claim:audiencemanager">
+    &lt;div class="userprofile">
+        &lt;tridion:widgetField value="contact:firstname" decorator="text" />&amp;nbsp;
+        &lt;tridion:widgetField value="contact:lastname" decorator="text" />&lt;br>
+        &lt;tridion:widgetField value="contact:email" decorator="email-link" />
+    &lt;/div>
+&lt;/tridion:widget>
+            </pre>
+        </section>
+        <section>
+            <span class="type">HTML</span>
+            <pre>
+&lt;div class="userprofile">
+    John&amp;nbsp;Doe&lt;br>
+    &lt;a href="mailto:john.doe@unknown.com">john.doe@unknown.com&lt;/a>
+&lt;/div>
+            </pre>
+        </section>
+        <section>
+            <p><br><br>
+                John Doe<br>
+                <a href="mailto:john.doe@unknown.com">john.doe@unknown.com</a>
+            </p>
+        </section>
+    </article>
+
+    <article class="smaller">
+        <h3>WidgetDataProviders</h3>
+        <section>
+            <span class="type">Java</span>
+            <pre>
+@WidgetDataProvider(protocol="adf")
+public class ADFWidgetDataProvider() {
+
+    @WidgetData
+    public WidgetResult getData(String path) {
+        ....
+    }
+}
+            </pre>
+        </section>
+        <section>
+            <span class="type">C#</span>
+            <pre>
+[WidgetDataProvider(Protocol="test")]
+public class TestWidgetProvider() {
+
+    [WidgetData]
+    public WidgetResult GetData(String Path) {
+        ....
+    }
+}
+            </pre>
+        </section>
+
+    </article>
+
+    <article>
+        <h3>Still to do</h3>
+        <ul>
+            <li>
+                Representation of Widgets in the CME/XM<br>
+                <small>Users should be able to work easily with them</small>
+            <li>
+                Publish Widgets<br>
+                <small>as one entity including functionality in the form of dll, jar, or js file</small>
+            <li>
+                Share Widgets<br>
+                <small>TridionWorld?, Stackoverflow?, Github?</small>
+        </ul>
+    </article>
+
+    <article>
+        <h1>
+            Demo
+        </h1>
+    </article>
+    <article>
+        <h1>
+            Questions
+        </h1>
+        <h4>This Presentation:</h4>
+        <p>http://presentation-gassies.rhcloud.com/Widgets.html</p>
+    </article>
+
 
 </section>
 

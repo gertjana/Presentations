@@ -538,16 +538,16 @@ res59: List[Int] = List(2,4,6,8,10 ....</pre>
 
 <article>
     <h3>Behaviour Driven Development</h3>
-    <p>What if Developer, Tester, Product Owner, Business analyst all speak the same language?</p>
+    <p>What if Developer, Designer, Tester, Product Owner, Business analyst all spoke the same language?</p>
     <ul>
         <li>
-            Build only features that add value
+            Build only features that add value!
         <li>
-            Result in less wasted effort (through traceability)
+            Result in less wasted effort! (through traceability)
         <li>
-            Improve communication
+            Improve communication!
         <li>
-            Get a higher quality, better tested product
+            Get a higher quality, better tested product!
     </ul>
     <p>User Story<br>
         <strong>As a [Role] I want [Feature] So that I receive [Value]</strong></p>
@@ -586,6 +586,36 @@ public void thenATMShouldRetainCard() {
 }</pre>
     </section>
 </article>
+
+<article class="smaller">
+    <h3>Behaviour Driven Development - Translating User stories</h3>
+    <h5>As a User I want to able to Login so I can download a whitepaper</h5>
+    <section>
+        <span class="type">Java</span>
+        <pre>
+        @Given("A login screen")
+        @When("User enters his correct password")
+        @Then("He should redirect to download page")
+        ...</pre>
+    </section>
+    <section>
+        <span class="type">Java</span>
+        <pre>
+        @Given("A login screen")
+        @When("User enters a wrong password")
+        @Then("He should get a 'wrong password' message")
+        ...</pre>
+    </section>
+    <section>
+        <span class="type">Java</span>
+        <pre>
+        @Given("The user has logged in correctly")
+        @When("he clicks on a download whitepaper link")
+        @Then("the download of the whitepaper starts")
+        ...</pre>
+    </section>
+</article>
+
 
 
 <article class="smaller">
