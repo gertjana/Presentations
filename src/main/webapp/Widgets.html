@@ -133,26 +133,29 @@ slides below. -->
         <h3>Component Presentation</h3>
         <div class="build">
         <p><br>
-            A component presentation is:<br>
-            a combination of a component and a (component)template</p>
+            A component presentation is a combination of a<br>
+            Component (content) and a Component Template (rendering)</p>
         <table>
             <tr>
                 <th>Component</th>
-                <th>Template</th>
             </tr>
             <tr>
                 <td>
                     <pre>
 Title="Big news"
 Summary="something big happened"
-
                     </pre>
                 </td>
+            </tr>
+            <tr>
+                <th>Component Template</th>
+            </tr>
+            <tr>
                 <td>
                     <pre>
 &lt;article>
-    &lt;h3>Big News&lt;/h3>
-    &lt;p>something big happened&lt;/p>
+    &lt;h3>@@RenderComponentField("Component.Fields.Title")@@&lt;/h3>
+    &lt;p>@@RenderComponentField("Component.Fields.Summary")@@&lt;/p>
 &lt;/article></pre>
                 </td>
             </tr>
@@ -166,11 +169,9 @@ Summary="something big happened"
         </p>
         <ul class="build">
             <li>
-                a defined interface to the outside world.
+                able to connect to a data source.
             <li>
-                able to connect to a Data Source.
-            <li>
-                able to consume a generic Data model.
+                able to consume a generic data model.
             <li>
                 manageable as a single entity.
             <li>
@@ -238,13 +239,13 @@ Summary="something big happened"
             </p>
                 <table>
                     <tr>
-                        <th  colspan="2">Another examples of data sources</th>
+                        <th  colspan="2">Some examples of data sources</th>
                     </tr>
                     <tr>
                         <td>http://weather.com/api/localweather.xml</td>
                     </tr>
                     <tr>
-                        <td>component://Component.Fields.FieldName</td>
+                        <td>field://Component.Fields.FieldName</td>
                     </tr>
                     <tr>
                         <td>widget://name_of_widget</td>
