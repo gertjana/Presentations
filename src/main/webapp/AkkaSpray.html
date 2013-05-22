@@ -46,7 +46,44 @@ URL: https://code.google.com/p/io-2012-slides
 
   <slide>
     <hgroup>
-      <h2>Akka.io</h2>
+      <h2>A bit of Scala</h2>
+    </hgroup>
+    <article class="smaller build">
+      <pre class="prettyprint" data-lang="scala">
+object HelloWorld {
+  def main(args: Array[String]) {
+    println("Hello, world!")
+  }
+}</pre>
+      <pre class="prettyprint" data-lang="scala">
+def applyValueToFunction(f: Int => String, v: Int) = f(v)</pre>
+      <pre class="prettyprint" data-lang="scala">
+//from the scala source code        
+object Option() {      
+  def apply[A](x: A): Option[A] = if (x == null) None else Some(x)
+}
+//
+def getParameter(name:String):Option[String] = {...}
+request.getParameter("foo") match {
+  case Some(p) => println("Param contains value:" + p)
+  case None => println("Param foo does not exists")
+}</pre>
+
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>A bit of Scala: Class Hierarchy</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/classhierarchy.png"/>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Akka</h2>
     </hgroup>
     <article>
       <ul>
