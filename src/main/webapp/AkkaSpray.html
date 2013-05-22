@@ -147,14 +147,14 @@ case class Tick(ticks: Int)
 case class Reset()
 
 class Counter extends Actor {
-    var counter = 0
+    var counter = 0                                   //state
 
     def recieve = {  
         case Tick(ticks) => 
-          counter += ticks
+          counter += ticks                            //behaviour
           println(“Tick! Counter is at: ” + counter)
         case Reset => 
-          counter = 0        
+          counter = 0                   
         case _ => 
           println("unknown message")
     }
@@ -172,7 +172,7 @@ counterActor ! Reset() // counter is 0
 
   <slide>
     <hgroup>
-      <h2>Remoting</h2>
+      <h2>Remote Actors</h2>
     </hgroup>
     <article class="smaller">
       <pre class="prettyprint" data-lang="akka config">
@@ -233,7 +233,7 @@ class Supervisor extends Actor {
 
   <slide>
     <hgroup>
-      <h2>Spray.io</h2>
+      <h2>Spray</h2>
     </hgroup>
     <article>
       <ul>
@@ -253,6 +253,10 @@ class Supervisor extends Actor {
       <tr>
         <td>spray-http</td>
         <td>Immutable model of the HTTP protocol (request, response)</td>
+      </tr>
+      <tr>
+        <td>spray-can</td>
+        <td> low-level, low-overhead, high-performance HTTP server</td>
       </tr>
       <tr>
         <td>spray-routing</td>
