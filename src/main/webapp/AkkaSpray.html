@@ -1,0 +1,361 @@
+<!--
+Google IO 2012/2013 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+<!--
+  <slide class="logoslide nobackground">
+    <article class="flexbox vcenter">
+      <span><img src="images/google_developers_logo.png"></span>
+    </article>
+  </slide>
+-->
+
+  <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="images/sdl_logo.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Akka.io</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Simple Concurrency &amp; Distribution
+          <ul>
+            <li>Asynchronous and Distributed by design.</li>
+            <li>High-level abstractions like Actors, Futures and STM.</li>
+          </ul>
+        </li>
+        <li>Resilient by Design
+          <ul>
+            <li>Write systems that self-heal.</li>
+            <li>Remote and/or local supervisor hierarchies.</li>
+          </ul>
+        </li>
+        <li>High Performance
+          <ul>
+            <li>50 million msg/sec on a single machine.</li>
+            <li>small memory footprint; ~2.5 million actors per GB of heap.</li>
+          </ul>
+        </li>
+        <li>Elastic &amp; Decentralized
+          <ul>
+            <li>Adaptive load balancing, routing, partitioning and configuration-driven remoting.</li>
+            <li>Extensible</li>
+          </ul>
+        </li>
+      <ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Actor model</h2>
+    </hgroup>
+    <article class="flexbox vright">
+      <ul>
+        <li>An actor is a computational entity that in response to a message it receives can concurrently:
+          <ul>
+            <li>send a finite number of messages to other actors;</li>
+            <li>create a finite number of new actors;</li>
+            <li>designate the behaviour to be used for the next message it receives.</li>
+            <li>There is no assumed sequence to the above actions and they could be carried out in parallel.</li>
+          </ul>
+          <br>
+        </li>
+        <li>Where OO is typically executed sequentially,</li>
+        <li>The Actor model is inherently concurrent</li>
+      </ul>
+      <img src="images/actor.png" alt="Description" title="Description" style="position:relative;bottom: 100px;">
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>So How does it look in code?</h2>
+    </hgroup>
+    <article class="smaller">
+      <pre class="prettyprint" data-lang="scala">
+case class Tick(ticks: Int) 
+case class Reset()
+
+class Counter extends Actor {
+    var counter = 0
+
+    def recieve = {  
+        case Tick(ticks) => 
+          counter += ticks
+          println(“Tick! Counter is at: ” + counter)
+        case Reset => 
+          counter = 0        
+        case _ => 
+          println("unknown message")
+    }
+}
+
+val system = ActorSystem("MyAkkaSystem")
+val counterActor = system.actorOf(Props[Counter], "Counter")
+
+counterActor ! Tick(2) // counter is 2
+counterActor ! Tick(3) // counter is 5
+counterActor ! Reset() // counter is 0
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Remoting</h2>
+    </hgroup>
+    <article class="smaller">
+      <pre class="prettyprint" data-lang="akka config">
+// config on all machines
+akka {
+  actor {
+    provider = akka.remote.RemoteActorRefProvider
+      deployment {
+        /counter { remote = akka://MySystem@machine1:2552 }
+     }
+  }
+}</pre>
+      <pre class="prettyprint" data-lang="scala">
+// Machine 1: Counter will be deployed here
+val system = ActorSystem("MySystem")</pre>
+      <pre class="prettyprint" data-lang="scala">
+// Machine 2: actor is created here but runs on machine 1
+val system = ActorSystem("MySystem")
+val counter = system.actorOf(Props[CounterActor], name = “counter")</pre>
+      <pre class="prettyprint" data-lang="scala">
+// Machine 3: get a reference to the actor from the logical home (machine2) 
+val system = ActorSystem("MySystem")
+val counter = system.actorFor("MySystem@machine2:2552/user/counter")</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Actor Hierarchy, Supervision</h2>
+    </hgroup>
+    <article class="smaller">
+      <pre class="prettyprint" data-lang="scala">
+// create a top level actor in the Akka system:
+val actor = system.actorOf(Props[SomeActor])
+
+//create an actor as a child of the current Actor
+Class myActor extends Actor {
+  val actor= context.actorOf(Props[SomeActor])
+  ….
+}
+
+class Supervisor extends Actor {
+  override val supervisorStrategy =
+    OneForOneStrategy(maxNrOfRetries = 10, withinTimeRange = 1 minute) {
+      case _ : ArithmeticException => Resume
+      case _ : NullPointerException => Restart
+      case _ : Exception => Escalate
+    }
+    .... 
+}</pre>
+      <ul>
+        <li>If an actor dies and is restarted, so will all it's children</li>
+        <li>One For One Strategy: If a child dies only that child will be restarted</li>
+        <li>All For One Strategy: If a child dies all children will be restarted</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Spray.io</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Spray is an open-source toolkit for REST/HTTP and low-level network IO on top of Scala and Akka. </li>
+        <li>Its lightweight, asynchronous, non-blocking, actor-based, modular and testable.</li>
+      </ul>
+    </article>
+    <table>
+      <tr>
+        <th>Module</th>
+        <th>What it does</th>
+      </tr>
+      <tr>
+        <td>spray-io</td>
+        <td>Low level network layer to Java’s NIO sockets</td>
+      </tr>
+      <tr>
+        <td>spray-http</td>
+        <td>Immutable model of the HTTP protocol (request, response)</td>
+      </tr>
+      <tr>
+        <td>spray-routing</td>
+        <td>Routing DSL, for instance easily design REST API</td>
+      </tr>
+      <tr>
+        <td>spray-caching</td>
+        <td>In memory caching, based on futures</td>
+      </tr>
+      <tr>
+        <td>spray-testkit</td>
+        <td>Easy testing of actor based systems</td>
+      </tr>
+
+    </table>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Spray Can</h2>
+    </hgroup>
+    <article class="smaller">
+      <pre class="prettyprint" data-lang="scala">
+object Main extends App with SprayCanHttpServerApp {
+  val flowHandler = system.actorOf(Props[FlowService])
+  newHttpServer(flowHandler) ! Bind(interface = “localhost", port = 9999)
+}</pre>
+      <p>From the Spray source code:</p>
+      <pre class="prettyprint" data-lang="scala">
+def newHttpServer(handler: ActorRef,
+                  ioBridge: ActorRef = IOExtension(system).ioBridge(),
+                  settings: ServerSettings = ServerSettings(),
+                  name: String = "http-server") = {
+
+  system.actorOf(Props(new HttpServer(ioBridge, SingletonHandler(handler), settings)), name)
+}</pre>
+    </article>
+  </slide>
+
+
+
+  <slide>
+    <hgroup>
+      <h2>Spray Routing</h2>
+    </hgroup>
+    <article class="smaller">
+      <pre class="prettyprint" data-lang="scala">
+class FlowService extends Actor with FlowRoutingService {
+  def actorRefFactory = context
+  def receive = runRoute(flowRoute)
+}
+
+trait FlowRoutingService extends HttpService {
+  val flowRoute = 
+    pathPrefix("flow") {
+      path("event" / "\\w+".r / "\\w+".r) { (session:String, event:String) =>
+        post {
+          entity(as[FormData]) { formData:FormData =>
+            complete {
+              eventActor ! RecordEvent(session, event, formData.fields)
+              Ok
+            }
+          }
+        }
+      }
+    }
+}</pre>
+      <pre class="prettyprint" data-lang="url">
+POST http://localhost:8080/flow/event/123342355452/click
+      </pre>
+
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Another example</h2>
+    </hgroup>
+    <article class="smaller">
+      <pre class="prettyprint" data-lang="scala">
+path("getsession") {
+ get {
+    optionalCookie("flow-session") {cookieOption =>
+       case Some(cookie) => {
+          setCookie(cookie:HttpCookie) {
+            complete {
+              cookie.content
+            }
+          }
+        }
+        case _ => {
+          val newCookie = new HttpCookie("flow-session", scala.Math.abs(new Random().nextLong()).toString())
+          setCookie(newCookie) {
+            complete {
+              newCookie.content
+            }
+          }                
+        }
+      }
+    }
+  }
+}</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <article class="flexbox vcenter">
+      <img src="images/demo2.png" />
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue dark nobackground">
+    <aside class="gdbar right"><img src="images/sdl_logo.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+       <h2 style="position:relative;top:-50px;">Thank You!</h2>
+      <table style="color:#888;width:80%;">
+        <tr>
+          <td>This Presentation</td>
+          <td>http://presentation-gassies.rhcloud.com</td>
+        </tr>
+        <tr>
+          <td style="color:#CCC;">Akka</td>
+          <td>http://akka.io or http://www.typesafe.com</td>
+        </tr>
+        <tr>
+          <td>Spray</td>
+          <td>http://spray.io</td>
+        </tr>
+        <tr>
+          <td style="color:#CCC;">Demo sourcecode</td>
+          <td>http://github.com/gertjana/Flow</td>
+        </tr>
+      </table>
+    </article>
+  </slide>
+
+
+
+  <slide class="backdrop"></slide>
+
+</slides>
+</body>
+</html>
