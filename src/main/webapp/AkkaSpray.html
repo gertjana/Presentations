@@ -13,6 +13,16 @@
   <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
   <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
   <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+  <style>
+    .left-bar {
+      position:relative;
+      left:-150px;
+      background-color:#ccc;
+      color:#369;
+      padding-left:100px;
+      padding-right:40px; 
+    }
+  </style>
 </head>
 <body style="opacity: 0">
 
@@ -22,9 +32,9 @@
     <aside class="gdbar"><img src="images/sdl_logo.png"></aside>
         <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
     <hgroup class="auto-fadein">
-      <h1 style="background-color:white;color:#369;padding-left:10px;padding-right:10px;" data-config-title><!-- populated from slide_config.json --></h1>
-      <h2 style="background-color:white;color:#369;padding-left:10px;padding-right:10px;" data-config-subtitle><!-- populated from slide_config.json --></h2>
-      <p style="background-color:white;color:#369;padding-left:10px;padding-right:10px;" data-config-presenter><!-- populated from slide_config.json --></p>
+      <h1 class="left-bar" data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 class="left-bar" data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p class="left-bar" data-config-presenter><!-- populated from slide_config.json --></p>
     </hgroup>
     <article>
       <img src="images/akka.jpg" style="float:right;position:relative;right:-100px;top:-80px;clear:right;" />
@@ -37,7 +47,7 @@
     <hgroup>
       <h2>A bit of Scala</h2>
     </hgroup>
-    <article class="smaller build">
+    <article class="smaller build fade">
       <pre class="prettyprint" data-lang="scala">
 object HelloWorld {
   def main(args: Array[String]) {
@@ -51,15 +61,11 @@ applyValueToFunction: (f: Int => Int, v: Int)Int
 scala> applyValueToFunction(x => x*2, 6)
 res2: Int = 12</pre>
       <pre class="prettyprint" data-lang="scala">
-//from the scala source code        
-object Option() {      
-  def apply[A](x: A): Option[A] = if (x == null) None else Some(x)
-}
-//
-def getParameter(name:String):Option[String] = {...}
-request.getParameter("foo") match {
-  case Some(p) => println("Param contains value:" + p)
-  case None => println("Param foo does not exists")
+class Stack[T] {
+  var elems: List[T] = Nil
+  def push(x: T) { elems = x :: elems }
+  def top: T = elems.head
+  def pop() { elems = elems.tail }
 }</pre>
 
     </article>
@@ -78,7 +84,7 @@ request.getParameter("foo") match {
     <hgroup>
       <h2>A bit of Scala: Pattern matching</h2>
     </hgroup>
-    <article class="smaller">
+    <article class="smaller build fade">
       <pre class="prettyprint" data-lang="scala">
 def matchTest(x: Int): String = x match {
   case 1 => "one"
@@ -92,13 +98,13 @@ try{
   case e: IOException => println("exception caught: " + e);
 }</pre>
       <pre class="prettyprint" data-lang="scala">
-class request {
-  def getOptionParameter(name:String):Option[String] = {
-    Option(javax.servlet.Request.getParameter(name))
+object Request(req: javax.servlet.Request) {
+  def getOptionalParameter(name:String):Option[String] = {
+    Option(req(name))
   }
 }
 
-request.getParameter("foo") match {
+Request.getParameter("foo") match {
   case Some(p) => println("Param contains value:" + p)
   case None => println("Param foo does not exists")
 }</pre>
@@ -110,7 +116,7 @@ request.getParameter("foo") match {
       <h2>Akka</h2>
     </hgroup>
     <article>
-      <ul>
+      <ul class="build fade">
         <li>Simple Concurrency &amp; Distribution
           <ul>
             <li>Asynchronous and Distributed by design.</li>
@@ -144,7 +150,7 @@ request.getParameter("foo") match {
       <h2>Actor model</h2>
     </hgroup>
     <article class="flexbox vright">
-      <ul>
+      <ul class="build fade">
         <li>An actor is a computational entity that in response to a message it receives can concurrently:
           <ul>
             <li>send a finite number of messages to other actors;</li>
@@ -199,7 +205,7 @@ counterActor ! Reset() // counter is 0
     <hgroup>
       <h2>Remote Actors</h2>
     </hgroup>
-    <article class="smaller">
+    <article class="smaller build fade">
       <pre class="prettyprint" data-lang="akka config">
 // config on all machines
 akka {
@@ -228,17 +234,16 @@ val counter = system.actorFor("MySystem@machine2:2552/user/counter")</pre>
     <hgroup>
       <h2>Actor Hierarchy, Supervision</h2>
     </hgroup>
-    <article class="smaller">
+    <article class="smaller build fade nobackground">
       <pre class="prettyprint" data-lang="scala">
 // create a top level actor in the Akka system:
-val actor = system.actorOf(Props[SomeActor])
-
+val actor = <b>system</b>.actorOf(Props[SomeActor])</pre>
+      <pre class="prettyprint" data-lang="scala">
 //create an actor as a child of the current Actor
 Class myActor extends Actor {
-  val actor= context.actorOf(Props[SomeActor])
-  ….
-}
-
+  val actor= <b>context</b>.actorOf(Props[SomeActor])
+}</pre>
+      <pre class="prettyprint" data-lang="scala">
 class Supervisor extends Actor {
   override val supervisorStrategy =
     OneForOneStrategy(maxNrOfRetries = 10, withinTimeRange = 1 minute) {
@@ -246,7 +251,6 @@ class Supervisor extends Actor {
       case _ : NullPointerException => Restart
       case _ : Exception => Escalate
     }
-    .... 
 }</pre>
       <ul>
         <li>If an actor dies and is restarted, so will all it's children</li>
@@ -263,47 +267,46 @@ class Supervisor extends Actor {
     <article>
       <ul>
         <li>Spray is an open-source toolkit for REST/HTTP and low-level network IO on top of Scala and Akka. </li>
-        <li>Its lightweight, asynchronous, non-blocking, actor-based, modular and testable.</li>
+        <li>Its lightweight, asynchronous, non-blocking, actor-based, modular, testable.</li>
       </ul>
+      <table>
+        <tr>
+          <th>Module</th>
+          <th>What it does</th>
+        </tr>
+        <tr>
+          <td>spray-io</td>
+          <td>Low level network layer to Java’s NIO sockets</td>
+        </tr>
+        <tr>
+          <td>spray-http</td>
+          <td>Immutable model of the HTTP protocol (request, response)</td>
+        </tr>
+        <tr>
+          <td>spray-can</td>
+          <td>Low-level, low-overhead, high-performance HTTP server</td>
+        </tr>
+        <tr>
+          <td>spray-routing</td>
+          <td>Routing DSL, for instance easily design REST API</td>
+        </tr>
+        <tr>
+          <td>spray-caching</td>
+          <td>In memory caching, based on futures</td>
+        </tr>
+        <tr>
+          <td>spray-testkit</td>
+          <td>Easy testing of actor based systems</td>
+        </tr>
+      </table>
     </article>
-    <table>
-      <tr>
-        <th>Module</th>
-        <th>What it does</th>
-      </tr>
-      <tr>
-        <td>spray-io</td>
-        <td>Low level network layer to Java’s NIO sockets</td>
-      </tr>
-      <tr>
-        <td>spray-http</td>
-        <td>Immutable model of the HTTP protocol (request, response)</td>
-      </tr>
-      <tr>
-        <td>spray-can</td>
-        <td>Low-level, low-overhead, high-performance HTTP server</td>
-      </tr>
-      <tr>
-        <td>spray-routing</td>
-        <td>Routing DSL, for instance easily design REST API</td>
-      </tr>
-      <tr>
-        <td>spray-caching</td>
-        <td>In memory caching, based on futures</td>
-      </tr>
-      <tr>
-        <td>spray-testkit</td>
-        <td>Easy testing of actor based systems</td>
-      </tr>
-
-    </table>
   </slide>
 
   <slide>
     <hgroup>
       <h2>Spray Can</h2>
     </hgroup>
-    <article class="smaller">
+    <article class="smaller build fade">
       <pre class="prettyprint" data-lang="scala">
 object Main extends App with SprayCanHttpServerApp {
   val flowHandler = system.actorOf(Props[FlowService])
@@ -329,6 +332,8 @@ def newHttpServer(handler: ActorRef,
     </hgroup>
     <article class="smaller">
       <pre class="prettyprint" data-lang="scala">
+import spray.json.DefaultJsonProtocol._  //implicit marshallers/unmarshallers
+
 class FlowService extends Actor with FlowRoutingService {
   def actorRefFactory = context
   def receive = runRoute(flowRoute)
@@ -350,8 +355,7 @@ trait FlowRoutingService extends HttpService {
     }
 }</pre>
       <pre class="prettyprint" data-lang="url">
-POST http://localhost:8080/flow/event/123342355452/click
-      </pre>
+POST http://localhost:8080/flow/event/123342355452/click</pre>
 
     </article>
   </slide>
