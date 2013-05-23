@@ -57,17 +57,7 @@ object HelloWorld {
 }</pre>
       <pre class="prettyprint" data-lang="scala">
 def applyValueToFunction(f: Int => String, v: Int) = f(v)</pre>
-      <pre class="prettyprint" data-lang="scala">
-//from the scala source code        
-object Option() {      
-  def apply[A](x: A): Option[A] = if (x == null) None else Some(x)
-}
-//
-def getParameter(name:String):Option[String] = {...}
-request.getParameter("foo") match {
-  case Some(p) => println("Param contains value:" + p)
-  case None => println("Param foo does not exists")
-}</pre>
+
 
     </article>
   </slide>
@@ -78,6 +68,37 @@ request.getParameter("foo") match {
     </hgroup>
     <article class="flexbox vcenter">
       <img src="images/classhierarchy.png"/>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>A bit of Scala: Pattern matching</h2>
+    </hgroup>
+    <article class="smaller">
+      <pre class="prettyprint" data-lang="scala">
+def matchTest(x: Int): String = x match {
+  case 1 => "one"
+  case 2 => "two"
+  case _ => "many"
+}</pre>
+      <pre class="prettyprint" data-lang="scala">
+try{
+    methodThatThrowsIOException();
+} catch {
+  case e: IOException => println("exception caught: " + e);
+}</pre>
+      <pre class="prettyprint" data-lang="scala">
+class request {
+  def getOptionParameter(name:String):Option[String] = {
+    Option(getParameter(name))
+  }
+}
+
+request.getParameter("foo") match {
+  case Some(p) => println("Param contains value:" + p)
+  case None => println("Param foo does not exists")
+}</pre>
     </article>
   </slide>
 
