@@ -91,7 +91,7 @@ try{
       <pre class="prettyprint" data-lang="scala">
 class request {
   def getOptionParameter(name:String):Option[String] = {
-    Option(getParameter(name))
+    Option(javax.servlet.Request.getParameter(name))
   }
 }
 
