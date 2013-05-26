@@ -45,7 +45,16 @@
 
   <slide>
     <hgroup>
-      <h2>A bit of Scala</h2>
+      <h2>A bit of Scala: Class Hierarchy</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/classhierarchy.png"/>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>A bit of Scala: </h2>
     </hgroup>
     <article class="smaller build fade">
       <pre class="prettyprint" data-lang="scala">
@@ -54,12 +63,6 @@ object HelloWorld {
     println("Hello, world!")
   }
 }</pre>
-      <pre class="prettyprint" data-lang="scala console">
-scala> def applyValueToFunction(f: Int => Int, v: Int) = f(v)
-applyValueToFunction: (f: Int => Int, v: Int)Int
-
-scala> applyValueToFunction(x => x*2, 6)
-res2: Int = 12</pre>
       <pre class="prettyprint" data-lang="scala">
 class Stack[T] {
   var elems: List[T] = Nil
@@ -73,11 +76,33 @@ class Stack[T] {
 
   <slide>
     <hgroup>
-      <h2>A bit of Scala: Class Hierarchy</h2>
+      <h2>A bit of Scala: Functional programming</h2>
     </hgroup>
-    <article class="flexbox vcenter">
-      <img src="images/classhierarchy.png"/>
-    </article>
+    <article class="smaller build">
+      <pre class="prettyprint" data-lang="scala console">
+scala> def applyValueToFunction(<b>f: Int => Int</b>, v: Int) = f(v)
+applyValueToFunction: (f: Int => Int, v: Int)Int
+
+scala> applyValueToFunction(<b>x => x*2</b>, 6)
+res2: Int = 12</pre>
+      <pre class="prettyprint" data-lang="scala">
+def loadProperties(propFileName:String): Properties = {
+  val props = new java.util.Properties
+  val stream = getClass.getResourceAsStream(propFilename)
+  if (stream ne null) {
+    <b>quietlyDispose(props.load(stream), stream.close)</b>
+  }
+  props
+}
+
+def quietlyDispose(action: => Unit, disposal: => Unit) =
+  try     { action }
+  finally {
+    try     { disposal }
+    catch   { case _: IOException => }
+  }
+</pre>
+    </article>    
   </slide>
 
   <slide>
@@ -406,17 +431,17 @@ path("getsession") {
           <td>This Presentation</td>
           <td>http://presentation-gassies.rhcloud.com</td>
         </tr>
-        <tr>
+        <tr style="background-color:#EEE;">
           <td>Akka</td>
-          <td style="color:#CCC;">http://akka.io or http://www.typesafe.com</td>
+          <td>http://akka.io or http://www.typesafe.com</td>
         </tr>
         <tr>
           <td>Spray</td>
           <td>http://spray.io</td>
         </tr>
-        <tr>
+        <tr style="background-color:#EEE;">
           <td>Demo sourcecode</td>
-          <td style="color:#CCC;">http://github.com/gertjana/Flow</td>
+          <td>http://github.com/gertjana/Flow</td>
         </tr>
       </table>
     </article>
