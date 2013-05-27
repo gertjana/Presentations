@@ -43,6 +43,30 @@
     </article>
   </slide>
 
+
+  <slide>
+    <hgroup>
+      <h2>Agenda</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>A bit of scala</li>
+        <ul>
+          <li>Class Hierarchy, Hello World/Generics, Functional programming, Pattern matching</li>
+        </ul>
+        <li>Akka</li>
+        <ul>
+          <li>Actor model, Remote actors, Actor hierarchy, supervision</li>
+        </ul>
+        <li>Spray</li>
+        <ul>
+          <li>spray-can, spray-routing</li>
+        </ul>
+        <li>Demo application</li>
+      </ul>   
+    </article>
+  </slide>
+
   <slide>
     <hgroup>
       <h2>A bit of Scala: Class Hierarchy</h2>
@@ -78,7 +102,7 @@ class Stack[T] {
     <hgroup>
       <h2>A bit of Scala: Functional programming</h2>
     </hgroup>
-    <article class="smaller build">
+    <article class="smaller build fade">
       <pre class="prettyprint" data-lang="scala console">
 scala> def applyValueToFunction(<b>f: Int => Int</b>, v: Int) = f(v)
 applyValueToFunction: (f: Int => Int, v: Int)Int
@@ -172,7 +196,7 @@ Request.getParameter("foo") match {
 
   <slide>
     <hgroup>
-      <h2>Actor model</h2>
+      <h2>Akka: Actor model</h2>
     </hgroup>
     <article class="flexbox vright">
       <ul class="build fade">
@@ -194,7 +218,7 @@ Request.getParameter("foo") match {
 
   <slide>
     <hgroup>
-      <h2>So How does it look in code?</h2>
+      <h2>Akka: So How does it look in code?</h2>
     </hgroup>
     <article class="smaller">
       <pre class="prettyprint" data-lang="scala">
@@ -228,7 +252,7 @@ counterActor ! Reset() // counter is 0
 
   <slide>
     <hgroup>
-      <h2>Remote Actors</h2>
+      <h2>Akka: Remote Actors</h2>
     </hgroup>
     <article class="smaller build fade">
       <pre class="prettyprint" data-lang="akka config">
@@ -257,7 +281,7 @@ val counter = system.actorFor("MySystem@machine2:2552/user/counter")</pre>
 
   <slide>
     <hgroup>
-      <h2>Actor Hierarchy, Supervision</h2>
+      <h2>Akka: Actor Hierarchy, Supervision</h2>
     </hgroup>
     <article class="smaller build fade nobackground">
       <pre class="prettyprint" data-lang="scala">
@@ -329,7 +353,7 @@ class Supervisor extends Actor {
 
   <slide>
     <hgroup>
-      <h2>Spray Can</h2>
+      <h2>Spray: spray-can</h2>
     </hgroup>
     <article class="smaller build fade">
       <pre class="prettyprint" data-lang="scala">
@@ -353,7 +377,7 @@ def newHttpServer(handler: ActorRef,
 
   <slide>
     <hgroup>
-      <h2>Spray Routing</h2>
+      <h2>Spray: spray-routing</h2>
     </hgroup>
     <article class="smaller">
       <pre class="prettyprint" data-lang="scala">
@@ -387,7 +411,7 @@ POST http://localhost:8080/flow/event/123342355452/click</pre>
 
   <slide>
     <hgroup>
-      <h2>Another example</h2>
+      <h2>Spray: Another routing example</h2>
     </hgroup>
     <article class="smaller">
       <pre class="prettyprint" data-lang="scala">
@@ -448,7 +472,6 @@ path("getsession") {
   </slide>
 
   <slide class="backdrop"></slide>
-
 </slides>
 </body>
 </html>
