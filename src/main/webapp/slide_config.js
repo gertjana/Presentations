@@ -22,8 +22,8 @@ var SLIDE_CONFIG = {
 
   // Author information
   presenters: [{
-    name: 'Gertjan Assies<br/>',
-    company: 'Senior Developer @ SDL',
+    name: 'Gertjan Assies',
+    company: 'DEV/OPS/TPO/CSM @ SDL',
     gplus: 'https://plus.google.com/107892177063287101818',
     twitter: '@major7',
     www: 'http://blog.addictivesoftware.net',
