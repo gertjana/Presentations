@@ -22,6 +22,14 @@
       padding-left:100px;
       padding-right:40px; 
     }
+
+    li pre {
+      display:inline;
+      padding: 3px 3px 3px 10px;
+      left:0;
+      background-color: white;
+    }
+
   </style>
 </head>
 <body style="opacity: 0">
@@ -82,7 +90,7 @@
 
   <slide>
     <hgroup>
-      <h2>A bit of Scala: Object Oriented</h2>
+      <h2>A bit of Object Oriented Scala</h2>
     </hgroup>
     <article class="smaller build fade">
       <pre class="prettyprint" data-lang="scala">
@@ -104,32 +112,38 @@ class Stack[T] {
 
   <slide>
     <hgroup>
-      <h2>A bit of Scala: Functional</h2>
+      <h2>A bit of Functional Scala:</h2>
     </hgroup>
-    <article class="smaller build fade">
-      <pre class="prettyprint" data-lang="scala console">
-scala> def applyValueToFunction(<b>f: Int => Int</b>, v: Int) = f(v)
-applyValueToFunction: (f: Int => Int, v: Int)Int
-
-scala> applyValueToFunction(<b>x => x*2</b>, 6)
-res2: Int = 12</pre>
+    <article class="smaller build">
       <pre class="prettyprint" data-lang="scala">
-def quietlyDispose(action: => Unit, disposal: => Unit) =
-  try     { action }
-  finally {
-    try     { disposal }
-    catch   { case _: IOException => }
-  }
+type Closable = {def close(): Unit}        
 
-def loadProperties(propFileName:String): Properties = {
-  val props = new java.util.Properties
-  val stream = getClass.getResourceAsStream(propFilename)
-  if (stream ne null) {
-    <b>quietlyDispose(props.load(stream), stream.close)</b>
-  }
-  props
+def using[A, B <: Closable] (closeable: B) (f: B => A): A = {
+  try { f(closeable) } 
+  finally { closeable.close() }
 }
-</pre>
+
+val properties = new java.util.Properties
+using(getClass.getResourceAsStream("/flow.properties")) { stream => 
+  properties.load(stream)
+}</pre>
+        <ul>
+          <li>Type Aliases:     <pre>type Closable = {def close(): Unit}</pre> 
+            <ul>
+              <li>is an alias for any type that implements a close() method</li>
+            </ul>
+          </li>
+          <li>Type Bounds: <pre>B &lt;: Closable</pre> 
+            <uL>
+              <li>B needs to be a subtype of Closable</li>
+            </ul>
+          </li>
+          <li>Method currying: <pre>using(closeable: B)(f: B => A) :A</pre>
+            <ul>
+              <li><pre>using(closable:B)</pre> returns a function which is called with a param of type <pre>f: B => A</pre></li>
+            </ul>
+          </li>
+        </ul>
     </article>    
   </slide>
 
@@ -151,15 +165,15 @@ try{
   case e: IOException => println("exception caught: " + e);
 }</pre>
       <pre class="prettyprint" data-lang="scala">
-object Request(req: javax.servlet.Request) {
+class Request(javaRequest: javax.servlet.Request) {
   def getOptionalParameter(name:String):Option[String] = {
-    Option(req(name))
+    <b>Option(javaRequest.getParameter(name))</b>
   }
 }
-
-Request.getParameter("foo") match {
-  case Some(p) => println("Param contains value:" + p)
-  case None => println("Param foo does not exists")
+val request = new Request(httpContext.getRequest())
+request.<b>getOptionalParameter("foo") match</b> {
+  <b>case Some(p) => </b>println("Param contains value:" + p)
+  <b>case None =></b> println("Param foo does not exists")
 }</pre>
     </article>
   </slide>
