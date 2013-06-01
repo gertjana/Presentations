@@ -32,10 +32,19 @@
 
     hgroup h2 {
       background-color: #ccc;
-      padding: 15px 15px 15px 80px;
+      padding: 5px 15px 15px 80px;
       position:relative;
       left:-80px;
+      top: -20px;
       width:120%;
+    }
+
+    hgroup h2.left-bar {
+      width:392px;
+    }
+    article {
+      position:relative;
+      top:-25px;
     }
 
   </style>
@@ -66,7 +75,7 @@
     </hgroup>
     <article>
       <ul>
-        <li>A bit of scala</li>
+        <li>A bit of Scala</li>
         <ul>
           <li>Class Hierarchy</li>
           <li>Object Oriented &amp; Functional programming</li> 
@@ -120,6 +129,37 @@ class Stack[T] {
 
   <slide>
     <hgroup>
+      <h2>A bit of Scala: Pattern matching</h2>
+    </hgroup>
+    <article class="smaller build fade">
+      <pre class="prettyprint" data-lang="scala">
+def matchTest(x: Int): String = x match {
+  case 1 => "one"
+  case 2 => "two"
+  case _ => "many"
+}</pre>
+      <pre class="prettyprint" data-lang="scala">
+try{
+    methodThatThrowsIOException();
+} catch {
+  case e: IOException => println("exception caught: " + e);
+}</pre>
+      <pre class="prettyprint" data-lang="scala">
+class Request(javaRequest: javax.servlet.Request) {
+  def getOptionalParameter(name:String):Option[String] = {
+    <b>Option(javaRequest.getParameter(name))</b>
+  }
+}
+val request = new Request(httpContext.getRequest())
+request.<b>getOptionalParameter("foo") match</b> {
+  <b>case Some(p) => </b>println("Param contains value:" + p)
+  <b>case None =></b> println("Param foo does not exists")
+}</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
       <h2>A bit of Functional Scala:</h2>
     </hgroup>
     <article class="smaller build">
@@ -153,37 +193,6 @@ using(getClass.getResourceAsStream("/flow.properties")) { stream =>
           </li>
         </ul>
     </article>    
-  </slide>
-
-  <slide>
-    <hgroup>
-      <h2>A bit of Scala: Pattern matching</h2>
-    </hgroup>
-    <article class="smaller build fade">
-      <pre class="prettyprint" data-lang="scala">
-def matchTest(x: Int): String = x match {
-  case 1 => "one"
-  case 2 => "two"
-  case _ => "many"
-}</pre>
-      <pre class="prettyprint" data-lang="scala">
-try{
-    methodThatThrowsIOException();
-} catch {
-  case e: IOException => println("exception caught: " + e);
-}</pre>
-      <pre class="prettyprint" data-lang="scala">
-class Request(javaRequest: javax.servlet.Request) {
-  def getOptionalParameter(name:String):Option[String] = {
-    <b>Option(javaRequest.getParameter(name))</b>
-  }
-}
-val request = new Request(httpContext.getRequest())
-request.<b>getOptionalParameter("foo") match</b> {
-  <b>case Some(p) => </b>println("Param contains value:" + p)
-  <b>case None =></b> println("Param foo does not exists")
-}</pre>
-    </article>
   </slide>
 
   <slide>
@@ -385,7 +394,7 @@ class Supervisor extends Actor {
       <pre class="prettyprint" data-lang="scala">
 object Main extends App with SprayCanHttpServerApp {
   val flowHandler = system.actorOf(Props[FlowService])
-  newHttpServer(flowHandler) ! Bind(interface = “localhost", port = 9999)
+  newHttpServer(flowHandler) ! Bind(interface = "localhost", port = 9999)
 }</pre>
       <p>From the Spray source code:</p>
       <pre class="prettyprint" data-lang="scala">
