@@ -305,7 +305,7 @@ slides > slide:not(.nobackground):before {
   position: absolute;
   bottom: 20px;
   left: 60px;
-  background: url(../../images/sdl_logo_tiny.png) no-repeat;
+  background: url(../../images/sdl.png) no-repeat;
   -webkit-background-size: 30px 30px;
   -moz-background-size: 30px 30px;
   -o-background-size: 30px 30px;
