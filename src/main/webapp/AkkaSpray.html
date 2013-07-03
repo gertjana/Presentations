@@ -133,7 +133,7 @@ class Stack[T] {
     </hgroup>
     <article class="smaller build fade">
       <pre class="prettyprint" data-lang="scala">
-def neanderthalCounting(x: Int): String = x match {
+def howManyBeersDidIHave(beers: Int): String = beers match {
   case 1 => "one"
   case 2 => "two"
   case _ => "many"
@@ -231,7 +231,35 @@ using(getClass.getResourceAsStream("/flow.properties")) { stream =>
 
   <slide>
     <hgroup>
-      <h2>Akka: Actor model</h2>
+      <h2>Actor model: history</h2>
+    </hgroup>
+    <article>
+      <ul class="build fade">
+        <li>First Whitepaper published in 1973
+          <ul>
+            <li>
+              Carl Hewitt; Peter Bishop and Richard Steiger (1973).<br/>
+              A Universal Modular Actor Formalism for Artificial Intelligence.<br/><br/>
+            </li>
+          </ul>
+        </li>
+        <li>First major implementation was Erlang in 1986:
+          <ul>
+            <li>
+              A functional programming language written in house at Ericsson for their phone exchange hardware
+            </li>
+            <li>
+                Distributed, fault-tolerant, supports hot-swapping
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Actor model</h2>
     </hgroup>
     <article class="flexbox vright">
       <ul class="build fade">
@@ -419,7 +447,6 @@ def newHttpServer(handler: ActorRef,
 import spray.json.DefaultJsonProtocol._  //implicit marshallers/unmarshallers
 
 class FlowService extends Actor with FlowRoutingService {
-  def actorRefFactory = context
   def receive = runRoute(flowRoute)
 }
 
