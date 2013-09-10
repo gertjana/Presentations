@@ -168,12 +168,14 @@ type Closable = {def close(): Unit}
 
 def using[A, B <: Closable] (closeable: B) (f: B => A): A = {
   try { f(closeable) } 
-  finally { closeable.close() }
+  finally { 
+    try { closeable.close() } 
+    catch { case _ => //swallow }
+  }
 }
 
-val properties = new java.util.Properties
 using(getClass.getResourceAsStream("/flow.properties")) { stream => 
-  properties.load(stream)
+  new java.util.Properties.load(stream)
 }</pre>
         <ul>
           <li>Type Aliases:     <pre>type Closable = {def close(): Unit}</pre> 
@@ -487,7 +489,7 @@ path("getsession") {
             }
           }
         }
-        case _ => {
+        case None => {
           val newCookie = new HttpCookie("flow-session", scala.Math.abs(new Random().nextLong()).toString())
           setCookie(newCookie) {
             complete {
