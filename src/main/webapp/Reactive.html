@@ -1,0 +1,514 @@
+
+<!--
+Google IO 2012/2013 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <!--This one seems to work all the time, but really small on ipad-->
+    <!--<meta name="viewport" content="initial-scale=0.4">-->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" media="all" href="theme/css/default.css">
+    <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+    <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+    <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+    <style>
+        .left-bar {
+            position:relative;
+            left:-150px;
+            background-color:#ccc;
+            color:#369;
+            padding-left:100px;
+            padding-right:40px;
+        }
+
+        li pre {
+            display:inline;
+            padding: 3px 3px 3px 10px;
+            left:0;
+            background-color: white;
+        }
+
+        hgroup h2, hgroup h1 {
+            background-color: #ccc;
+            padding: 5px 15px 15px 80px;
+            position:relative;
+            left:-120px;
+            top: -20px;
+            width:120%;
+        }
+
+        hgroup p {
+            background-color: #ccc;
+            padding: 5px 15px 15px 80px;
+            position:relative;
+            left:-120px;
+            top: -20px;
+            width:120%;
+        }
+
+        hgroup h2.left-bar {
+            width:392px;
+        }
+        article {
+            position:relative;
+            top:-25px;
+        }
+
+        .callout {
+            position:relative;
+            left: 800px;
+            top: -66px;
+            background-color: #336699;
+            border: 1px solid #6699CC;
+            color:white;
+            font-weight:bold;
+            padding: 20px 20px 20px 20px;
+            border-radius:15px;
+        }
+
+
+    </style>
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+
+<slide class="title-slide segue nobackground fill" style="background-image: url(images/laptop.jpg)">
+    <!--aside class="gdbar"><img src="images/sdl_logo.png"></aside-->
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+        <h1 data-config-title><!-- populated from slide_config.json --></h1>
+        <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+        <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Reactive Programming</h2>
+    </hgroup>
+    <article>
+        <img src="images/full-reactive.png" alt="Reactive Programming" title="Reactive Programming" style="width:960px;">
+        <br/><br/>
+        <p>source: <strong>www.reactivemanifesto.org</strong></p>
+    </article>
+</slide>
+
+
+<slide>
+    <hgroup>
+        <h2>Why?</h2>
+    </hgroup>
+    <article>
+        <ul>
+            <li>Application requirements have changed</li>
+            <ul>
+                <li>Instead of expensive hardware with single cpu's</li>
+                <ul>
+                    <li>hardware nowadays is cheap, and cpu cores many<br/>
+                    for instance ABN Amro runs it's Tridion website on servers with 120 cores :)</li> 
+                </ul>
+                <img src="images/abn_not_enough_cpus.png" />
+                <li>Instead of a few users on couple of big servers</li>
+                <ul>
+                    <li>Websites and social networks have to deal with million's of users</li>
+                    <li>Wikpedia has ~ 50.000 requests/second)</li>
+                    <li>Twitter: 300.000 timeline queries per second</li>
+                    <li>Facebook: 4.75 billion pieces of content shared daily</li>
+                </ul>
+                <li>93% of the world has a mobile phone nowadays</li>
+            </ul>
+        </ul>
+    </article>
+</slide>
+
+
+<slide>
+    <hgroup>
+        <h2>React to Events</h2>
+        <span class="callout">event-driven</span>
+    </hgroup>
+    <article>
+        <h1>Event driven applications:</h1><br/>
+        <ul>
+            <li>communicate asynchronous (aka message-passing)</li>
+            <li>are loosely coupled</li>
+            <li>recipients remain dormant until an event or message arrives<br/>making more efficient use of resources</li>
+            <li>Push instead of Pull</li>
+            <li>NO shared mutable state</li>
+        </ul>
+        <img src="images/actors.png" style="position:relative;left:500px;top:-100px;" />
+    </article>
+</slide>
+<slide>
+    <hgroup>
+        <h2>Amdahl's Law</h2>
+        <span class="callout">event-driven</span>
+    </hgroup>
+    <article>
+        <img src="images/AmdahlsLaw.svg"  width="500" />
+        <p>In the 95% case:<br/>
+            5% of the work happens sequentially hence the max. 20x speedup</p>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>React to Load</h2>
+        <span class="callout">scalable</span>
+    </hgroup>
+    <article>
+        <h1>Location Transparency</h1><br/>
+        <pre class="prettyprint" data-lang="scala">
+val system = ActorSystem.create("MySystem")
+val greeterActor = system.actorOf(new Props[GreeterActor](), name="Greeter")
+greetActor ! Hello("World")
+        </pre>
+        <pre class="prettyprint" data-lang="application.config">
+akka {
+  actor {
+    deployment {
+      /Greeter { remote = akka://MySystem@machine1:2552 }
+     }
+  }
+}</pre>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>React to Failure</h2>
+        <span class="callout">resilient</span>
+    </hgroup>
+    <article class="">
+        <h1>Exceptions and Failures are just events and should be handled as such.</h1><br/>
+        <p>As there is no shared state and everything is loosy coupled it is easy to isolate failures and recover from them.</p>
+        <br/>
+      <pre class="prettyprint" data-lang="scala">
+class Supervisor extends Actor {
+  override val supervisorStrategy =
+    OneForOneStrategy(maxNrOfRetries = 10, withinTimeRange = 1 minute) {
+      case _ : ArithmeticException => Resume
+      case _ : NullPointerException => Restart
+      case _ : Exception => Escalate
+    }
+}</pre>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>React to Users</h2>
+        <span class="callout">responsive</span>
+    </hgroup>
+    <article>
+        <ul>
+            <li>Non-Blocking: lower latency and higher throughput under heavy loads</li>
+            <li>Automatically scale on higher loads, keeping response times low and invariant</li> 
+        </ul>
+        <img src="images/(non)blocking.png" style="position:relative;left:200px;"/>
+    </article>
+</slide>
+
+
+<slide>
+    <hgroup>
+        <h2>Pitfall: ! Threadlocal</h2>
+    </hgroup>
+    <article>
+    <pre data-lang="route">
+GET     /claims     Controller.claims()
+    </pre>
+    <pre class="prettyprint" data-lang="java">
+public static Result claims() {
+    return views.claims().render(
+        AmbientDataContext.getCurrentClaimStore().getAll()
+    );
+}</pre>
+        <ul>
+            <li>AmbientDataContext keeps state in ThreadLocal</li>
+            <li>Result is a Future</li>
+        </ul>
+    </article>
+</slide>
+
+  <slide>
+    <hgroup>
+      <h2>Akka</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Simple Concurrency &amp; Distribution
+          <ul>
+            <li>Asynchronous and Distributed by design.</li>
+            <li>High-level abstractions like Actors, Futures and STM.</li>
+          </ul>
+        </li>
+        <li>Resilient by Design
+          <ul>
+            <li>Write systems that self-heal.</li>
+            <li>Remote and/or local supervisor hierarchies.</li>
+          </ul>
+        </li>
+        <li>High Performance
+          <ul>
+            <li>50 million msg/sec on a single machine.</li>
+            <li>small memory footprint; ~2.5 million actors per GB of heap.</li>
+          </ul>
+        </li>
+        <li>Elastic &amp; Decentralized
+          <ul>
+            <li>Adaptive load balancing, routing, partitioning and configuration-driven remoting.</li>
+            <li>Extensible</li>
+          </ul>
+        </li>
+      <ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Actor model: history</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>First Whitepaper published in 1973
+          <ul>
+            <li>
+              Carl Hewitt; Peter Bishop and Richard Steiger (1973).<br/>
+              A Universal Modular Actor Formalism for Artificial Intelligence.<br/><br/>
+            </li>
+          </ul>
+        </li>
+        <li>First major implementation was Erlang in 1986:
+          <ul>
+            <li>
+              A functional programming language written in house at Ericsson for their phone exchange hardware
+            </li>
+            <li>
+                Distributed, fault-tolerant, supports hot-swapping
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <pre data-lang="erlang" class="small">
+dolphin1() ->
+    receive
+        do_a_flip ->
+            io:format("How about no?~n");
+        fish ->
+            io:format("So long and thanks for all the fish!~n");
+        _ ->
+            io:format("Heh, we're smarter than you humans.~n")
+    end.</pre>
+    </article>
+  </slide>
+
+<slide>
+    <hgroup>
+        <h2>Starbucks example</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+        <img src="images/demo2.png"/>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>example</h2>
+    </hgroup>
+    <article>
+        <pre class="prettyprint" data-lang="scala">
+    val employees = List(
+      system.actorOf(Props[Employee], "Rajesh"),
+      system.actorOf(Props[Employee], "Howard"),
+      system.actorOf(Props[Employee], "Amy")
+    )</pre>
+        <pre class="prettyprint" data-lang="scala">
+    val customers = List(
+      ("Penny", "Tall Latte Machiato"),
+      ("Leonard", "Double Tall Cappuccino"),
+      ("Bernadette", "Grande Spicy Pumpkin Latte"),
+      ("Sheldon", "Double Espresso")
+    )</pre>
+    </article>
+</slide>
+
+
+<slide>
+    <hgroup>
+        <h2>example</h2>
+    </hgroup>
+    <article>
+        <pre class="prettyprint" data-lang="scala">
+implicit val system = <b>ActorSystem.create("StarBucks")</b>
+
+val starBucks = system.actorOf(Props[Employee]
+       .withRouter(SmallestMailboxRouter(routees=employees)), "StarBucks")
+
+for ((name, coffee) <- customers) {
+  println(s"Customer ${name} orders a ${coffee}")
+  <b>starBucks ! Order(coffee, name)</b>
+  waitSomeTime
+}
+        </pre>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>A typical Starbucks employee:</h2>
+    </hgroup>
+    <article class="smallert">
+        <pre class="prettyprint" data-lang="scala">
+class Employee extends Actor {
+  def <b>receive</b> = {
+    case <b>Order</b>(coffee, name) => {
+      println(s"Employee ${self.path.name} writes '${coffee}' and '${name}' on a cup")
+      <b>context.actorSelection("/user/StarBucks") ! MakeCoffee(coffee, name)</b>
+    }
+    case <b>MakeCoffee</b>(coffee, name) => {
+      println(s"Employee ${self.path.name} makes a ${coffee} for ${name} ")
+      <b>context.actorSelection("/user/StarBucks") ! CoffeeReady(coffee, name)</b>
+    }
+    case <b>CoffeeReady</b>(coffee, name) => {
+      println(s"Employee ${self.path.name} shouts: ${coffee} for ${name} is ready!")
+    }
+  }
+
+case class <b>Order</b>(coffee:String, name:String)
+case class <b>MakeCoffee</b>(coffee:String, name:String)
+case class <b>CoffeeReady</b>(coffee:String, name:String)</pre>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Remote Example</h2>
+    </hgroup>
+    <article class="build">
+        <div>
+        <pre class="prettyprint" data-lang="application.config">
+akka {
+  actor {
+    provider = "akka.remote.RemoteActorRefProvider"
+    deployment {
+<b>      /Leslie {
+        remote = "akka.tcp://StarBucks@127.0.0.1:2553"
+      }</b>
+    }
+  }
+}</pre>
+        <pre class="prettyprint" data-lang="scala">
+val employees = List(
+  system.actorOf(Props[Employee], "Raj"),
+  system.actorOf(Props[Employee], "Howard"),
+  system.actorOf(Props[Employee], "Amy"),
+  <b>system.actorOf(Props[Employee], "Leslie")</b>
+)</pre></div>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Remote System</h2>
+    </hgroup>
+    <article>
+        <pre class="prettyprint" data-lang="scala">
+<b>val system = ActorSystem.create("StarBucks")</b>
+... //do something blocking
+system.shutdown</pre>
+        <pre class="prettyprint" data-lang="application.config">
+akka {
+  actor {
+    provider = "akka.remote.RemoteActorRefProvider"
+  }
+  remote {
+    enabled-transports = ["akka.remote.netty.tcp"]
+    netty.tcp {
+      hostname = "127.0.0.1"
+      port = <b>2553</b>
+    }
+  }
+}</pre>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Who does reactive</h2>
+    </hgroup>
+    <table>
+        <tr>
+            <th width="33%">Library</th>
+            <th>Language</th>
+            <th>Company</th>
+        </tr>
+        <tr>
+            <td>Akka</td>
+            <td>Scala, Java</td>
+            <td>Typesafe</td>
+        </tr>
+        <tr>
+            <td>Play Framework</td>
+            <td>Scala, Java</td>
+            <td>Typesafe</td>
+        </tr>
+        <tr>
+            <td>RxJava</td>
+            <td>Java</td>
+            <td>Netflix</td>
+        </tr>
+        <tr>
+            <td>Reactor</td>
+            <td>Java</td>
+            <td>Springsource</td>
+        </tr>
+        <tr>
+            <td>Node.js</td>
+            <td>Javascript</td>
+            <td>Joyent</td>
+        </tr>
+        <tr>
+            <td>Reactive Extensions</td>
+            <td>.Net</td>
+            <td>Microsoft</td>
+        </tr>        <tr>
+            <td>Midori</td>
+            <td>M#<br/>language for a experimental async OS</td>
+            <td>Microsoft</td>
+        </tr>       
+    </table>
+</slide>
+
+
+<slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+        <blockquote style="font-style:italic;line-spacing:3;">Reactive applications represent a balanced approach to addressing a wide range of contemporary challenges in software development. Building on an event-driven, message-based foundation, they provide the tools needed to ensure scalability and resilience. On top of this they support rich, responsive user interactions. We expect that a rapidly increasing number of systems will follow this blueprint in the years ahead.</blockquote>
+    </article>
+    <p class="auto-fadein" data-config-contact>
+        <!-- populated from slide_config.json -->
+    </p>
+</slide>
+<slide class="backdrop"></slide>
+
+</slides>
+
+<!--[if IE]>
+<script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+<script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>

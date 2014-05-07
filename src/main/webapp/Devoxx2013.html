@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<!--
+  Google HTML5 slide template
+
+  Authors: Luke Mahé (code)
+           Marcin Wichary (code and design)
+           
+           Dominic Mazzoni (browser compatibility)
+           Charles Chen (ChromeVox support)
+
+  URL: http://code.google.com/p/html5slides/
+-->
+
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Presentation</title>
+
+    <meta charset='utf-8'>
+    <script src='http://html5slides.googlecode.com/svn/trunk/slides.js'></script>
+</head>
+
+<style>
+    /* Your individual styles here, or just use inline styles if that’s
+    what you want. */
+    .slides.template-default > article:not(.nobackground):not(.biglogo) {
+        background: url(images/devoxx-logo-small.jpg) 890px 545px no-repeat !important;
+        background-color: white !important;
+    }
+
+    article li small {
+        opacity: 0.5;
+        font-style: italic;
+    }
+
+    img.small {
+        width:300px;
+    }
+
+    td.big {
+        font-size: 200%;
+        color:blue;
+    }
+
+    h1 {
+        background-color: #cccccc;
+        position: relative !important;
+        left: -100px !important;
+        padding:20px 0px 20px 100px !important;
+        border-radius:10px;
+    }
+
+    h3 {
+        background-color: #cccccc;
+        position: relative !important;
+        left: -100px !important;
+        padding: 10px 0px 10px 100px !important;
+        border-radius:10px;
+    }
+
+    .type {
+        background-color: #d3d3d3;
+        color:#00008b;
+        font-size:50%;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        padding:2px 10px 2px 10px;
+        position: relative;
+        top:11px;
+        display:inline;
+
+
+    }
+
+    pre {
+        margin-top:5px !important;
+        margin-bottom:5px !important;
+    }
+
+    th {
+        background-color:#336699;
+        color:#DDDDDD;
+    }
+
+</style>
+
+<body style='display: none'>
+
+<section class='slides layout-widescreen template-default'>
+
+<article>
+    <h1>Devoxx 2013</h1>
+    <p>
+        Adil Akther<br/>
+        Jesper de Jong<br/>
+        Gertjan Assies<br/>
+        <br/>
+        13-15 November 2013
+    </p>
+</article>
+
+<article>
+    <h3>Stats</h3>
+    <ul>
+        <li>3500 Devoxxians</li>
+        <li>195 speakers gave 200 talks</li>
+        <li>12356 #devoxx Tweets</li>
+        <li>Walked 21138 steps</li>
+    </ul>
+</article>
+
+<article>
+    <h3>3500 Devoxxians ... one tram</h3>
+    <p>
+        <img src="images/tram6.jpg" style="width:600px;" />
+    </p>
+</article>
+
+<article>
+    <h3>Oracle Keynote</h3>
+    <h4>Java State of the Union</h4>
+    <ul>
+        <li>Java 8 march 2014</li>
+        <li>Java 7 EE already out</li>
+        <li>Further phase out Java ME</li>
+        <li>Java SE also to target "The Internet of Things"</li>
+        <li>Java 8 SE preview already supports embedded devices<br/>
+            <em>(including hard-float support for the raspberry pi)</em></li>
+    </ul>
+</article>
+
+<article>
+    <h3>Oracle Keynote</h3>
+    <h4>Chess Computer: JavaFX, Websockets, Raspberry PI</h4>
+    <img src="images/chess_computer.jpg" />
+    <img src="images/chessrobot.png" style="position:relative;left:550px;top:-460px;"/>
+</article>
+
+<article>
+    <h3>Devoxx Keynote</h3>
+    <h4>Live music with: Clojure, Emacs</h4>
+    <span class="type">clojure</span>
+    <pre>(definst dubstep [freq 100 wobble-freq 2]
+  (let [sweep (lin-exp (lf-saw wobble-freq) -1 1 40 5000)
+        son   (mix (saw (* freq [0.99 1 1.01])))]
+    (lpf son sweep)))</pre>
+    <img src="images/clojure_music.jpg" style="display:inline;position:relative;width:500px;top:-100px;left:400px;"/>
+</article>
+
+<article>
+    <h3>Google KeyNote</h3>
+    <ul>
+        <li>Dart 1.0</li>
+        <li>Angular Dart</li>
+    </ul>
+</article>
+
+<article>
+    <h3>
+        Important features in Java 8
+    </h3>
+    <ul>
+        <li>Default and static methods in interfaces</li>
+        <li>Stream package</li>
+            <ul>
+                <li>parallel processing of collections</li>
+                <li>Backwards compatible due to default methods on interfaces</li>
+            </ul>
+        <li>Lamda expressions
+            <ul>
+                <li>more intuitive syntax</li>
+                <li>enables parallel operations</li>
+            </ul>
+        </li>
+    </ul>
+</article>
+
+<article>
+    <h3>Other languages on the JVM</h3>
+    <ul>
+        <li>Scala, Ceylon, Kotlin, Groovy</li>
+        <li>Nashhorn: Javascript engine in the JVM</li>
+        <li>Most heard comment:<br/>
+            <em>Closures in Java 8? we already have them now</em>
+        </li>
+    </ul>
+</article>
+<article>
+    <h3>The Internet of Things</h3>
+    <p>
+        Its more and more about data, devices talking to each other with human intervention
+    </p>
+</article>
+
+<article>
+    <h3>Reactive Programming</h3>
+    <img src="images/reactive.png" style="width:800px;"/>
+</article>
+
+<article>
+    <h3>Reactive Programming - Event Driven</h3>
+</article>
+
+<article class="small">
+    <h3>Reactive Programming - Scalable - Location Transparancy</h3>
+    <div class="build">
+        <div>
+        <span class="type">scala</span>
+        <pre lang="scala">
+//Local Actor
+val greeterActor = system.actorOf(new Props[GreeterActor](), name="Greeter")
+greetActor ! Hello("Gertjan")</pre>
+        </div>
+        <div>
+        <span class="type">scala</span>
+          <pre lang="scala">
+//Remote Actor
+val greeterActor = system.actorOf(new Props[GreeterActor](), name="Greeter")
+greetActor ! Hello("Gertjan")</pre>
+        </div>
+        <div>
+        <span class="type">config</span>
+             <pre class="prettyprint" data-lang="akka config">
+akka {
+  actor {
+    deployment {
+      /Greeter { remote = akka://MySystem@machine1:2552 }
+     }
+  }
+}</pre>
+        </div>
+    </div>
+</article>
+
+<article>
+    <h3>Reactive Programming - Resilient</h3>
+    <br/>
+    <div class="build">
+
+        <ul>
+            <li>Failures are just events and should be handled as such</li>
+            <li>This will require a supervisor strategy</li>
+        </ul>
+        <div>
+        <span class="type">scala</span>
+          <pre>
+class Supervisor extends Actor {
+  override val supervisorStrategy =
+    OneForOneStrategy(maxNrOfRetries = 10, withinTimeRange = 1 minute) {
+      case _ : ArithmeticException => Resume
+      case _ : NullPointerException => Restart
+      case _ : Exception => Escalate
+    }
+}</pre>
+        </div>
+    </div>
+</article>
+
+<article>
+    <h3>Reactive Programming - Libraries</h3>
+    <h4>http://www.reactivemanifesto.org</h4>
+    <table>
+        <tr>
+            <th width="33%">Library</th>
+            <th>Language</th>
+            <th>Company</th>
+        </tr>
+        <tr>
+            <td>Akka</td>
+            <td>Scala, Java</td>
+            <td>Typesafe</td>
+        </tr>
+        <tr>
+            <td>Play Framework</td>
+            <td>Scala, Java</td>
+            <td>Typesafe</td>
+        </tr>
+        <tr>
+            <td>RxJava</td>
+            <td>Java</td>
+            <td>Netflix</td>
+        </tr>
+        <tr>
+            <td>Reactor</td>
+            <td>Java</td>
+            <td>Springsource</td>
+        </tr>
+        <tr>
+            <td>Reactive Extensions</td>
+            <td>.Net</td>
+            <td>Microsoft</td>
+        </tr>
+        <tr>
+            <td>Node.js</td>
+            <td>Javascript</td>
+            <td>Joyent</td>
+        </tr>
+    </table>
+</article>
+
+
+
+    <article>
+        <h3>Coding in style (Scala)</h3>
+        <ul>
+            <li>Expressions not statements</li>
+            <li>Try returns a success or failure,
+                you can compose them with for</li>
+        </ul>
+        <span class="type">scala</span>
+        <pre lang="scala">
+  def first() = {
+    Try(Console.readline("add a nr:")
+  }
+  def second() = {
+    Try(Console.readline("add a nr:")
+  }
+  def sum:Try[Int] = {
+      for (
+        i <- first
+        j <- second
+      } yield i.toInt + j.toInt
+ }</pre>
+    </article>
+
+    <article>
+        <h3>Coding in style (Scala) 2</h3>
+            <p>Functional design</p>
+           <ul>
+               <li>OO is top down, abstractions at the top, extend lower down in subclasses</li>
+               <li>Functional design is bottom up, you create basic functions and compose them higher up</li>
+           </ul>
+
+    </article>
+
+    <article>
+        <h3>Coding in Style (Scala) 3</h3>
+        <p>Pattern matching</p>
+    </article>
+
+
+
+
+
+    <article>
+    <h1>
+        Questions
+    </h1>
+    <h4>This Presentation:</h4>
+    <p>http://presentation-gassies.rhcloud.com/Devoxx2013.html</p>
+    <h4>The HTML5 Slides template</h4>
+    <p>https://code.google.com/p/html5slides/</p>
+</article>
+
+</section>
+
+</body>
+</html>
