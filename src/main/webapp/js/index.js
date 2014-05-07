@@ -4,6 +4,7 @@
         {"name":"Widgets","file":"Widgets.html", "date": "Nov 2012", "screenshot":"Widgets.png"},
         {"name":"Devoxx 2012","file":"Devoxx2012.html", "date": "Dec 2012", "screenshot":"Devoxx2012.png"},
         {"name":"Akka, Spray and a bit of scala","file":"AkkaSpray.html", "date": "", "screenshot":"AkkaSpray.png"}
+        {"name":"Reactive Programming","file":"Reactive.html", "date": "Nov 2013", "screenshot":""}
       ]
 
       for (var i=0;i<presentations.length;i++) {
